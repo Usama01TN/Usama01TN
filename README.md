@@ -32,8 +32,6 @@ const usama = {
 } as const;
 ```
 
-<img src="./assets/recent.svg" width="100%" alt="Right now: the repositories I pushed to most recently"/>
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/projects-dark.svg"/>
   <source media="(prefers-color-scheme: light)" srcset="./assets/headers/projects-light.svg"/>
