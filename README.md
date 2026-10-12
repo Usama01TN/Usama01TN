@@ -16,15 +16,11 @@ Cross-platform software developer: desktop, mobile and web.
   <img src="./assets/headers/about-dark.svg" width="100%" alt="About me"/>
 </picture>
 
-I'm a cross-platform software developer working across desktop, mobile and the web. On the native side that means C++ and Qt, plus a lot of PyQt and PySide, shipping one codebase to Windows, macOS, Linux, Android and iOS. On the web side it's TypeScript, React and the usual HTML, CSS and JavaScript crew. I like building the same idea for every screen it needs to live on, and making it feel fast on all of them.
-
-Most of my open-source work lives where those worlds meet: an OCR router with a web dashboard *and* a desktop client, a compatibility layer that lets one codebase run on six Qt bindings, build tooling that packages PyQt and PySide apps for multiple platforms, a Chrome extension that talks to vision models, and remote-desktop tooling for Python. Also a duck that walks across your taskbar, because not everything has to be serious.
-
 ```ts
 const usama = {
   role:      "cross-platform software developer",
   platforms: ["Windows", "macOS", "Linux", "Android", "iOS", "Web"],
-  native:    ["C++", "Qt", "PyQt / PySide"],
+  native:    ["Qt C++", "PyQt / PySide"],
   web:       ["TypeScript", "React", "JavaScript", "HTML / CSS"],
   backend:   ["Python", "Node.js"],
   debugger:  "a rubber duck",            // 100% success rate, 0% salary
