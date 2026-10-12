@@ -29,8 +29,10 @@ const usama = {
   onGitHub:  { repos: 33, stars: 12, topLanguages: ["Python", "HTML", "JavaScript", "CSS"] },
   debugger:  "a rubber duck",            // 100% success rate, 0% salary
   status:    (coffee: boolean) => coffee ? "shipping" : "compiling...",
-} as const;
+} as const;   // onGitHub is refreshed daily by a GitHub Action
 ```
+
+<img src="./assets/recent.svg" width="100%" alt="Right now: the repositories I pushed to most recently"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/projects-dark.svg"/>
