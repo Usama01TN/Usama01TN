@@ -69,15 +69,12 @@ def kt(total, *times):
     return ';'.join(f'{min(max(t / total, 0), 1):.4f}' for t in times)
 
 
-# Spacing system. Full-width images span the whole README column (no side padding), so their
-# edges line up with the text. Cards sit two per row; each carries half of the 20-unit gutter
-# on its inner side, so a pair shown at 49.9% + 49.9% lines up exactly with a full-width image.
-# Every image carries the same bottom padding, which becomes the vertical gap between rows.
+# Spacing system. Each section is ONE image whose grid is laid out inside the SVG, so the gaps
+# between cards are exact (GAP units) and can't be changed by how GitHub flows inline images.
 GAP = 20
-VGAP = 16          # plus the few pixels GitHub adds under inline images, this matches GAP
 
 
-def svg_doc(w, h, label, body, fonts=('Unbounded-700', 'JBMono-400'), extra_css='', pad=(0, 0, 0, VGAP)):
+def svg_doc(w, h, label, body, fonts=('Unbounded-700', 'JBMono-400'), extra_css='', pad=(0, 0, 0, 0)):
     pl, pr, pt, pb = pad
     W, H = w + pl + pr, h + pt + pb
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" '
@@ -158,7 +155,7 @@ def duck(walking=False, scale=1.0):
 # ------------------------------------------------------------------- data ---
 GQL = '''query($login:String!){user(login:$login){name login followers{totalCount}
 repositories(ownerAffiliations:OWNER,first:100,privacy:PUBLIC,orderBy:{field:STARGAZERS,direction:DESC}){
- nodes{name description stargazerCount isFork primaryLanguage{name}}}
+ nodes{name description stargazerCount isFork pushedAt primaryLanguage{name}}}
 contributionsCollection{contributionCalendar{weeks{contributionDays{date contributionCount}}}}}}'''
 
 
@@ -166,13 +163,25 @@ def load_data():
     token = os.environ.get('GH_TOKEN')
     snap_path = os.path.join(ROOT, 'data', 'snapshot.json')
     if token:
+        try:
+            return fetch_live(token, snap_path)
+        except Exception as e:  # keep yesterday's data rather than break the page
+            print(f'  GitHub API failed ({e}); using data/snapshot.json')
+    else:
+        print('  GH_TOKEN not set, using data/snapshot.json')
+    return json.load(open(snap_path))
+
+
+def fetch_live(token, snap_path):
+    if True:
         req = urllib.request.Request('https://api.github.com/graphql',
                                      data=json.dumps({'query': GQL, 'variables': {'login': LOGIN}}).encode(),
                                      headers={'Authorization': f'bearer {token}', 'Content-Type': 'application/json'})
         u = json.load(urllib.request.urlopen(req, timeout=60))['data']['user']
         data = {'login': u['login'], 'name': u['name'] or u['login'], 'followers': u['followers']['totalCount'],
                 'repos': [{'name': r['name'], 'description': r['description'] or '', 'stars': r['stargazerCount'],
-                           'fork': r['isFork'], 'language': (r['primaryLanguage'] or {}).get('name')}
+                           'fork': r['isFork'], 'language': (r['primaryLanguage'] or {}).get('name'),
+                           'pushedAt': r.get('pushedAt')}
                           for r in u['repositories']['nodes']],
                 'calendar': [{'date': d['date'], 'count': d['contributionCount']}
                              for w in u['contributionsCollection']['contributionCalendar']['weeks']
@@ -181,14 +190,36 @@ def load_data():
         os.makedirs(os.path.dirname(snap_path), exist_ok=True)
         json.dump(data, open(snap_path, 'w'), indent=1)
         return data
-    print('  GH_TOKEN not set, using data/snapshot.json')
-    return json.load(open(snap_path))
 
 
 # ------------------------------------------------------------ type scale ---
 # One scale for every image. Images render at roughly 0.8x on GitHub, so nothing goes below 13.
 T_TITLE, T_SUB, T_BODY, T_SMALL = 19, 13.5, 14, 13
 INSET = 28  # inner padding of every card
+
+
+TODAY = dt.date.today()
+
+
+def ago(iso):
+    if not iso:
+        return ''
+    d = (TODAY - dt.date.fromisoformat(iso[:10])).days
+    if d <= 0:
+        return 'today'
+    if d == 1:
+        return 'yesterday'
+    if d < 14:
+        return f'{d} days ago'
+    if d < 60:
+        return f'{d // 7} weeks ago'
+    if d < 365:
+        return f'{d // 30} months ago'
+    return f'{d // 365} year{"s" if d >= 730 else ""} ago'
+
+
+def own_repos(data):
+    return [r for r in data['repos'] if not r['fork'] and r['name'].lower() != data['login'].lower()]
 
 
 def card_title(title, sub, w, right=None, right_sub=None):
@@ -201,18 +232,21 @@ def card_title(title, sub, w, right=None, right_sub=None):
 
 
 # --------------------------------------------------------------- headers ---
-SECTIONS = [  # (id, glyph, accent, title, subtitle)
-    ('about', '{ }', CYAN, 'About me', 'desktop, mobile and web, often from one codebase'),
-    ('projects', '</>', PINK, "Things I've built", 'click a card to open the repo'),
-    ('toolbox', '#', AMBER, 'Toolbox', 'what I reach for, from C++ to CSS'),
-    ('stats', '%', MINT, 'By the numbers', 'redrawn every day from my GitHub data'),
-    ('contact', '@', VIOLET, "Let's talk", 'freelance, collaborations, well-written bug reports'),
-]
+def sections(data):
+    """Section banners. Subtitles are built from live data where it makes sense."""
+    return [  # (id, glyph, accent, title, subtitle)
+        ('about', '{ }', CYAN, 'About me', 'desktop, mobile and web, often from one codebase'),
+        ('projects', '</>', PINK, "Things I've built", 'open source, for desktop, mobile and the web'),
+        ('toolbox', '#', AMBER, 'Toolbox', 'what I reach for, from C++ to CSS'),
+        ('stats', '%', MINT, 'By the numbers', f'redrawn every day, last run {TODAY.strftime("%d %b %Y")}'),
+        ('support', '<3', PINK, 'Support my work', 'optional, appreciated, mostly converted into coffee'),
+        ('contact', '@', VIOLET, "Let's talk", 'freelance, collaborations, well-written bug reports'),
+    ]
 
 
-def make_headers():
+def make_headers(data):
     W, H = 1000, 64
-    for sid, glyph, accent, title, sub in SECTIONS:
+    for sid, glyph, accent, title, sub in sections(data):
         for mode, tcol, scol in (('dark', TEXT, MUTED), ('light', '#16113A', '#5B5591')):
             tx = 64
             line_x = tx + tw(title, 'Unbounded-700', 24) + 24
@@ -239,6 +273,7 @@ PROJECTS = [  # (repo, icon, accent, one-liner) -- edit freely, keep one-liners 
 ]
 FALLBACK_DESC = {'QRemoteDisplay': 'A simple RDP connector for Python, built on PyFreeRdpNative and ManyQt.'}
 CARD_W = (1000 - GAP) // 2   # 490
+CARD_H = 236
 
 
 def icon(kind, c):
@@ -270,35 +305,122 @@ def icon(kind, c):
     return ''
 
 
-def make_project_cards(data):
-    repos = {r['name']: r for r in data['repos']}
-    W, H = CARD_W, 236
+def project_card(r, name, kind, accent, joke, gid):
+    W, H = CARD_W, CARD_H
     inner = W - 2 * INSET
-    for idx, (name, kind, accent, joke) in enumerate(PROJECTS):
-        side = (0, GAP // 2, 0, VGAP) if idx % 2 == 0 else (GAP // 2, 0, 0, VGAP)   # left / right column
-        r = repos.get(name, {'name': name, 'description': '', 'stars': 0, 'language': None})
-        desc = FALLBACK_DESC.get(name) or r['description'] or ''
-        if desc.lower().startswith('about '):
-            desc = desc[6:]
-        size = T_TITLE
-        while tw(name, 'Unbounded-700', size) > W - 104 - INSET and size > 13:
-            size -= .5
-        lines = wrap(desc, 'JBMono-400', T_BODY, inner, 3)
-        joke = wrap(joke, 'JBMono-400', T_SMALL, inner, 1)[0]
-        lang = r.get('language') or 'Code'
-        star_x = 116 + tw(lang, 'JBMono-400', T_SMALL) + 20
-        b = [card_bg(W, H, accent, 'cg'),
-             f'<rect x="{INSET}" y="{INSET}" width="56" height="56" rx="16" fill="{accent}" fill-opacity=".12" stroke="{accent}" stroke-opacity=".45"/>',
-             f'<g transform="translate({INSET} {INSET})">{icon(kind, accent)}</g>',
-             f'<text x="104" y="54" class="d" font-size="{size}" font-weight="700" fill="{TEXT}">{esc(name)}</text>',
-             f'<circle cx="109" cy="75" r="5" fill="{accent}"/>',
-             f'<text x="120" y="80" class="m" font-size="{T_SMALL}" fill="{MUTED}">{esc(lang)}</text>',
-             star_path(star_x + 7, 74.5, 7.5, AMBER),
-             f'<text x="{star_x + 20:.0f}" y="80" class="m" font-size="{T_SMALL}" fill="{MUTED}">{r.get("stars", 0)}</text>']
-        for i, line in enumerate(lines):
-            b.append(f'<text x="{INSET}" y="{124 + i * 22}" class="m" font-size="{T_BODY}" fill="{TEXT}" fill-opacity=".88">{esc(line)}</text>')
-        b.append(f'<text x="{INSET}" y="{H - INSET}" class="m" font-size="{T_SMALL}" fill="{accent}">{esc(joke)}</text>')
-        save(f'projects/{name}.svg', svg_doc(W, H, f'{name}: {desc}', ''.join(b), pad=side))
+    desc = FALLBACK_DESC.get(name) or r['description'] or ''
+    if desc.lower().startswith('about '):
+        desc = desc[6:]
+    size = T_TITLE
+    while tw(name, 'Unbounded-700', size) > W - 104 - INSET and size > 13:
+        size -= .5
+    lines = wrap(desc, 'JBMono-400', T_BODY, inner, 3)
+    joke = wrap(joke, 'JBMono-400', T_SMALL, inner, 1)[0]
+    lang = r.get('language') or 'Code'
+    star_x = 116 + tw(lang, 'JBMono-400', T_SMALL) + 20
+    b = [card_bg(W, H, accent, gid),
+         f'<rect x="{INSET}" y="{INSET}" width="56" height="56" rx="16" fill="{accent}" fill-opacity=".12" stroke="{accent}" stroke-opacity=".45"/>',
+         f'<g transform="translate({INSET} {INSET})">{icon(kind, accent)}</g>',
+         f'<text x="104" y="54" class="d" font-size="{size}" font-weight="700" fill="{TEXT}">{esc(name)}</text>',
+         f'<circle cx="109" cy="75" r="5" fill="{accent}"/>',
+         f'<text x="120" y="80" class="m" font-size="{T_SMALL}" fill="{MUTED}">{esc(lang)}</text>',
+         star_path(star_x + 7, 74.5, 7.5, AMBER),
+         f'<text x="{star_x + 20:.0f}" y="80" class="m" font-size="{T_SMALL}" fill="{MUTED}">{r.get("stars", 0)}</text>']
+    for i, line in enumerate(lines):
+        b.append(f'<text x="{INSET}" y="{124 + i * 22}" class="m" font-size="{T_BODY}" fill="{TEXT}" fill-opacity=".88">{esc(line)}</text>')
+    b.append(f'<text x="{INSET}" y="{H - INSET}" class="m" font-size="{T_SMALL}" fill="{accent}">{esc(joke)}</text>')
+    if r.get('pushedAt'):
+        b.append(f'<text x="{W - INSET}" y="80" text-anchor="end" class="m" font-size="{T_SMALL}" fill="{DIM}">updated {ago(r["pushedAt"])}</text>')
+    return ''.join(b), f'{name}: {desc}'
+
+
+FEATURED = 8
+GENERIC_ICONS = ['box', 'layers', 'remote', 'ocr', 'key', 'toggle', 'shield', 'duck']
+
+
+def featured(data):
+    """The PROJECTS list, minus repos that no longer exist, topped up with the most-starred others."""
+    repos = {r['name']: r for r in own_repos(data)}
+    out = [(n, k, c, j) for n, k, c, j in PROJECTS if n in repos][:FEATURED]
+    taken = {n for n, *_ in out}
+    extra = sorted((r for r in repos.values() if r['name'] not in taken and (r['description'] or r['stars'])),
+                   key=lambda r: (-r['stars'], r.get('pushedAt') or ''))
+    cols = [CYAN, PINK, AMBER, MINT, VIOLET, BLUE]
+    for i, r in enumerate(extra[:FEATURED - len(out)]):
+        out.append((r['name'], GENERIC_ICONS[i % len(GENERIC_ICONS)], cols[i % len(cols)], 'Open source, as always.'))
+    return out
+
+
+def make_projects(data):
+    repos = {r['name']: r for r in data['repos']}
+    feats = featured(data)
+    rows = math.ceil(len(feats) / 2)
+    W, H = 1000, rows * CARD_H + (rows - 1) * GAP
+    body, labels = [], []
+    for i, (name, kind, accent, joke) in enumerate(feats):
+        card, label = project_card(repos[name], name, kind, accent, joke, f'cg{i}')
+        x, y = (i % 2) * (CARD_W + GAP), (i // 2) * (CARD_H + GAP)
+        body.append(f'<g transform="translate({x} {y})">{card}</g>')
+        labels.append(label)
+    save('projects.svg', svg_doc(W, H, 'Projects. ' + ' '.join(labels), ''.join(body)))
+    return [n for n, *_ in feats]
+
+
+# -------------------------------------------------- badges and toolbox ---
+def badge(label, value, color, name, logo=None):
+    """A self-hosted badge. No third-party service, so it still renders in 2050."""
+    h, fs = 28, 12.5
+    lw = tw(label, 'JBMono-700', fs) + 24 + (22 if logo else 0)
+    vw = tw(value, 'JBMono-400', fs) + 24
+    W = lw + vw
+    body = (f'<defs><clipPath id="b"><rect width="{W:.0f}" height="{h}" rx="6"/></clipPath></defs>'
+            f'<g clip-path="url(#b)"><rect width="{lw:.0f}" height="{h}" fill="{CARD}"/>'
+            f'<rect x="{lw:.0f}" width="{vw:.0f}" height="{h}" fill="{color}"/></g>'
+            f'<rect x=".5" y=".5" width="{W - 1:.0f}" height="{h - 1}" rx="6" fill="none" stroke="{STROKE}"/>'
+            + (f'<g transform="translate(10 7)">{logo}</g>' if logo else '')
+            + f'<text x="{12 + (22 if logo else 0)}" y="18.5" class="m" font-size="{fs}" font-weight="700" fill="{TEXT}" textLength="{tw(label, "JBMono-700", fs):.1f}" lengthAdjust="spacingAndGlyphs">{esc(label)}</text>'
+            f'<text x="{lw + 12:.0f}" y="18.5" class="m" font-size="{fs}" fill="{NIGHT1}" textLength="{tw(value, "JBMono-400", fs):.1f}" lengthAdjust="spacingAndGlyphs">{esc(value)}</text>')
+    save(f'badges/{name}.svg', svg_doc(math.ceil(W), h, f'{label}: {value}', body, fonts=('JBMono-400', 'JBMono-700')))
+
+
+LOGO_MAIL = f'<rect x="0" y="2" width="14" height="10" rx="2" fill="none" stroke="{TEXT}" stroke-width="1.4"/><path d="M1 4l6 4 6-4" fill="none" stroke="{TEXT}" stroke-width="1.4"/>'
+LOGO_CUP = f'<path d="M1 3h9v5a3.5 3.5 0 0 1-7 0V3z" fill="none" stroke="{TEXT}" stroke-width="1.4"/><path d="M10 4.5h1.5a1.75 1.75 0 0 1 0 3.5H10" fill="none" stroke="{TEXT}" stroke-width="1.4"/><path d="M2 12.5h8" stroke="{TEXT}" stroke-width="1.4"/>'
+LOGO_HEART = f'<path d="M7 12.5L2 7.6A2.9 2.9 0 0 1 7 3.9a2.9 2.9 0 0 1 5 3.7z" fill="none" stroke="{TEXT}" stroke-width="1.4"/>'
+LOGO_PEOPLE = f'<circle cx="5" cy="4.5" r="2.5" fill="none" stroke="{TEXT}" stroke-width="1.4"/><path d="M1 12.5a4 4 0 0 1 8 0" fill="none" stroke="{TEXT}" stroke-width="1.4"/><circle cx="10.5" cy="5" r="2" fill="none" stroke="{TEXT}" stroke-width="1.3"/><path d="M10 12.5h3.5a3 3 0 0 0-2.5-3.4" fill="none" stroke="{TEXT}" stroke-width="1.3"/>'
+
+
+def make_badges(data):
+    badge('Email', 'ininou.oussematn@gmail.com', PINK, 'email', LOGO_MAIL)
+    badge('Followers', f'{data["followers"]:,}', VIOLET, 'followers', LOGO_PEOPLE)
+    badge('Ko-fi', 'Buy me a coffee', AMBER, 'kofi', LOGO_CUP)
+    badge('Ba9chich', 'Leave a tip', CYAN, 'ba9chich', LOGO_HEART)
+
+
+TOOLBOX = [  # (group, accent, items) -- plain text chips, no logos to break or expire
+    ('Native', CYAN, ['C++', 'Qt', 'Python', 'PyQt', 'PySide']),
+    ('Web', PINK, ['TypeScript', 'JavaScript', 'React', 'Node.js', 'HTML', 'CSS']),
+    ('Platforms', MINT, ['Windows', 'macOS', 'Linux', 'Android', 'iOS', 'Web']),
+    ('Also', AMBER, ['OCR', 'RDP', 'LLM APIs', 'Git', 'CI']),
+]
+
+
+def make_toolbox():
+    W = 1000
+    row_h, y = 52, INSET + 10
+    body = []
+    for group, c, items in TOOLBOX:
+        body.append(f'<text x="{INSET}" y="{y + 20}" class="d" font-size="14" font-weight="700" fill="{c}">{esc(group)}</text>')
+        x = INSET + 120
+        for it in items:
+            w = tw(it, 'JBMono-400', 13.5) + 30
+            body.append(f'<rect x="{x:.0f}" y="{y}" width="{w:.0f}" height="30" rx="15" fill="{CARD2}" stroke="{STROKE}"/>'
+                        f'<circle cx="{x + 14:.0f}" cy="{y + 15}" r="4" fill="{c}"/>'
+                        f'<text x="{x + 24:.0f}" y="{y + 19.5}" class="m" font-size="13.5" fill="{TEXT}">{esc(it)}</text>')
+            x += w + 10
+        y += row_h
+    H = y + INSET - 12
+    save('toolbox.svg', svg_doc(W, H, 'Toolbox: ' + '; '.join(f'{g}: {", ".join(i)}' for g, _, i in TOOLBOX),
+                                card_bg(W, H, AMBER, 'tg') + ''.join(body)))
 
 
 # ------------------------------------------------------------------ stats ---
@@ -357,7 +479,7 @@ def make_overview(data):
 <text x="24" y="80" class="d" font-size="36" font-weight="700" fill="{c}">{num:,}</text></g>
 <text x="24" y="109" class="m" font-size="15" fill="{TEXT}">{esc(label)}</text>
 <text x="24" y="131" class="m" font-size="{T_SMALL}" fill="{MUTED}">{esc(sub)}</text></g>''')
-    save('stats/overview.svg', svg_doc(W, H, 'Profile overview: ' + ', '.join(f'{t[0]} {t[1]}' for t in tiles), ''.join(b)))
+    return ''.join(b), H, 'Profile overview: ' + ', '.join(f'{t[0]} {t[1]}' for t in tiles)
 
 
 def make_activity(data):
@@ -402,8 +524,7 @@ def make_activity(data):
 <rect x="{lx:.1f}" y="{ly:.1f}" width="{lw:.0f}" height="{lh}" rx="12" fill="{CARD2}" stroke="{AMBER}" stroke-opacity=".6"/>
 <text x="{lx + 14:.1f}" y="{ly + 21:.1f}" class="m" font-size="{T_SMALL}" font-weight="700" fill="{AMBER}">{esc(label)}</text>
 <text x="{lx + 14:.1f}" y="{ly + 39:.1f}" class="m" font-size="{T_SMALL}" fill="{MUTED}">{esc(sub)}</text></g>''')
-    save('stats/activity.svg', svg_doc(W, H, f'{total} contributions in the last 12 months, peak week {vals[pk]}', ''.join(b),
-                                       fonts=('Unbounded-700', 'JBMono-400', 'JBMono-700')))
+    return ''.join(b), H, f'{total} contributions in the last 12 months, peak week {vals[pk]}'
 
 
 def languages_card(data, W, H):
@@ -471,7 +592,7 @@ def make_breakdown(data):
     left, la = languages_card(data, CARD_W, H)
     right, ra = weekdays_card(data, CARD_W, H)
     body = f'<g>{left}</g><g transform="translate({CARD_W + GAP} 0)">{right}</g>'
-    save('stats/breakdown.svg', svg_doc(W, H, f'{la}. {ra}.', body))
+    return body, H, f'{la}. {ra}'
 
 
 def make_heatmap(data):
@@ -511,7 +632,7 @@ def make_heatmap(data):
 <g><animateTransform attributeName="transform" type="translate" values="-40 {ground};{W + 40} {ground}" dur="18s" repeatCount="indefinite"/>
 <g><animateTransform attributeName="transform" type="translate" values="0 0;0 -2.5;0 0" dur=".5s" repeatCount="indefinite"/>{duck(walking=True, scale=.62)}</g></g>''')
     body = f'<defs><clipPath id="hm"><rect width="{W}" height="{H}" rx="20"/></clipPath></defs><g clip-path="url(#hm)">{"".join(b)}</g>'
-    save('stats/heatmap.svg', svg_doc(W, H, 'Contribution calendar for the last 12 months', body))
+    return body, H, 'Contribution calendar for the last 12 months'
 
 
 # ----------------------------------------------------------------- footer ---
@@ -529,15 +650,122 @@ def make_footer():
     save('footer.svg', svg_doc(W, H, 'Thanks for scrolling', b))
 
 
+# ---------------------------------------------------------- about & readme ---
+THEMES = [  # (label, keywords matched against name + description, lower-case)
+    ('Qt and PyQt desktop work', ('qt', 'pyqt', 'pyside')),
+    ('remote desktop tooling', ('rdp', 'remote desktop', 'freerdp')),
+    ('OCR and AI integrations', ('ocr', ' ai ', 'vision model', 'llm', 'openai', 'claude', 'gemini', 'ollama')),
+    ('build and packaging tools', ('builder', 'build', 'packag', 'freeze')),
+    ('web and front-end projects', ('html', 'css', 'javascript', 'typescript', 'react', 'node', 'chrome', 'portfolio')),
+]
+
+
+def classify(repo):
+    """Themes a repo belongs to, each with a score: keyword in the name beats keyword in the description."""
+    name = f' {repo["name"]} '.lower().replace('_', ' ').replace('-', ' ')
+    hay = f'{name}{repo.get("description") or ""} {repo.get("language") or ""} '.lower().replace('_', ' ').replace('-', ' ')
+    out = []
+    for label, keys in THEMES:
+        if any(k in name for k in keys):
+            out.append((label, 2))
+        elif any(k in hay for k in keys):
+            out.append((label, 1))
+    return out
+
+
+def oxford(items):
+    items = list(items)
+    return items[0] if len(items) == 1 else ', '.join(items[:-1]) + ' and ' + items[-1]
+
+
+def about_text(data):
+    duck = any(r['name'] == 'TheWalkingDuckTaskBar' for r in own_repos(data))
+    return (
+        "**I build software that runs everywhere.** Desktop, mobile and web, often from a single codebase, "
+        "with the same attention to how it feels on each screen.\n\n"
+        "- 🖥️ **Native:** Qt with C++ and Python (PyQt / PySide), shipped to Windows, macOS, Linux, Android and iOS.\n"
+        "- 🌐 **Web:** TypeScript, React and Node.js, from the first component to the deploy.\n"
+        "- 🧩 **Favourite problems:** many moving parts behind one clean interface. Fifty OCR engines behind one API, "
+        "six Qt bindings behind one import, a vision model behind one hotkey.\n"
+        "- 🔌 **Also:** remote-desktop tooling, build and packaging tools, AI integrations"
+        + (", and a duck that walks across your taskbar." if duck else ".")
+    )
+
+
+def code_block(data):
+    own = own_repos(data)
+    langs = [l for l, _ in collections.Counter(r['language'] for r in own if r['language']).most_common(4)]
+    return f'''```ts
+const usama = {{
+  role:      "cross-platform software developer",
+  platforms: ["Windows", "macOS", "Linux", "Android", "iOS", "Web"],
+  native:    ["Qt C++", "PyQt / PySide"],
+  web:       ["TypeScript", "React", "JavaScript", "HTML / CSS"],
+  backend:   ["Python", "Node.js"],
+  onGitHub:  {{ repos: {len(own)}, stars: {sum(r['stars'] for r in own)}, topLanguages: {json.dumps(langs)} }},
+  debugger:  "a rubber duck",            // 100% success rate, 0% salary
+  status:    (coffee: boolean) => coffee ? "shipping" : "compiling...",
+}} as const;   // onGitHub is refreshed daily by a GitHub Action
+```'''
+
+
+def make_recent(data):
+    """'Right now' card: the repos pushed to most recently."""
+    own = [r for r in own_repos(data) if r.get('pushedAt')]
+    recent = sorted(own, key=lambda r: r['pushedAt'], reverse=True)[:4]
+    W, H = 1000, 108 + 46 * len(recent)
+    cols = [CYAN, PINK, AMBER, MINT]
+    b = [card_bg(W, H, CYAN, 'rg'), card_title('Right now', 'the repos I pushed to most recently', W)]
+    for i, r in enumerate(recent):
+        y = 118 + i * 46
+        desc = (r.get('description') or '').strip()
+        if desc.lower().startswith('about '):
+            desc = desc[6:]
+        desc = wrap(desc, 'JBMono-400', T_SMALL, 520, 1)[0] if desc else ''
+        b.append(f'''<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="{.2 + i * .15:.2f}s" dur=".5s" fill="freeze"/>
+<animateTransform attributeName="transform" type="translate" from="-12 0" to="0 0" begin="{.2 + i * .15:.2f}s" dur=".5s" fill="freeze"/>
+<circle cx="{INSET + 6}" cy="{y - 5}" r="5" fill="{cols[i % 4]}"/>
+<text x="{INSET + 22}" y="{y}" class="d" font-size="15" font-weight="700" fill="{TEXT}">{esc(r['name'])}</text>
+<text x="{INSET + 22 + tw(r['name'], 'Unbounded-700', 15) + 16:.0f}" y="{y}" class="m" font-size="{T_SMALL}" fill="{MUTED}">{esc(r.get('language') or '')}</text>
+<text x="{W - INSET}" y="{y}" text-anchor="end" class="m" font-size="{T_SMALL}" fill="{DIM}">pushed {ago(r['pushedAt'])}</text>
+<text x="{INSET + 22}" y="{y + 19}" class="m" font-size="{T_SMALL}" fill="{MUTED}" fill-opacity=".8">{esc(desc)}</text></g>''')
+        if i < len(recent) - 1:
+            b.append(f'<line x1="{INSET}" x2="{W - INSET}" y1="{y + 30}" y2="{y + 30}" stroke="{STROKE}" stroke-opacity=".6"/>')
+    save('recent.svg', svg_doc(W, H, 'Recently pushed: ' + ', '.join(r['name'] for r in recent), ''.join(b)))
+
+
+def write_readme(data, names):
+    tpl = open(os.path.join(ROOT, 'scripts', 'README.template.md'), encoding='utf-8').read()
+    links = ' ·\n  '.join(f'<a href="https://github.com/{data["login"]}/{n}">{n}</a>' for n in names)
+    out = (tpl.replace('{{about}}', about_text(data)).replace('{{code}}', code_block(data))
+              .replace('{{project_links}}', links).replace('{{project_names}}', ', '.join(names))
+              .replace('{{login}}', data['login']).replace('{{updated}}', TODAY.strftime('%d %b %Y')))
+    with open(os.path.join(ROOT, 'README.md'), 'w', encoding='utf-8') as f:
+        f.write(out)
+    print('  wrote README.md')
+
+
+def make_stats(data):
+    y, body, labels = 0, [], []
+    for build in (make_overview, make_activity, make_breakdown, make_heatmap):
+        part, h, label = build(data)
+        body.append(f'<g transform="translate(0 {y})">{part}</g>')
+        labels.append(label)
+        y += h + GAP
+    save('stats.svg', svg_doc(1000, y - GAP, '. '.join(labels), ''.join(body),
+                              fonts=('Unbounded-700', 'JBMono-400', 'JBMono-700')))
+
+
 def main():
     data = load_data()
     print(f'Generating for {data["login"]} ({data.get("source", "")})')
-    make_headers()
-    make_project_cards(data)
-    make_overview(data)
-    make_activity(data)
-    make_breakdown(data)
-    make_heatmap(data)
+    make_headers(data)
+    make_badges(data)
+    make_toolbox()
+    make_recent(data)
+    names = make_projects(data)
+    make_stats(data)
+    write_readme(data, names)
     make_footer()
 
 

@@ -8,259 +8,296 @@
    "description": "One API for 50+ OCR engines: smart routing, automatic fallbacks, caching, cost tracking, web dashboard and PyQt desktop app.",
    "stars": 3,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-09-30T15:15:54Z"
   },
   {
    "name": "QuizKey",
    "description": "Hotkey-driven AI quiz assistant for Chrome, powered by vision models (OpenAI, Claude, Gemini, OpenRouter, OmniRoute, Ollama, LM Studio\u2026)",
    "stars": 2,
    "fork": false,
-   "language": "JavaScript"
+   "language": "JavaScript",
+   "pushedAt": "2026-09-15T00:15:15Z"
   },
   {
    "name": "QFunnyWidgets",
    "description": "Funny animated Qt widgets for PyQt and PySide: switches, loaders, sliders, toasts and more, each with a personality.",
    "stars": 1,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-10-11T15:26:38Z"
   },
   {
    "name": "QRemoteDisplay",
    "description": "A simple RDP connector based on PyFreeRdpNative and ManyQt for python.",
    "stars": 1,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-09-18T20:02:15Z"
   },
   {
    "name": "TheWalkingDuckTaskBar",
    "description": "A PyQt/PySide quacking duck that waddles across the Windows taskbar.",
    "stars": 1,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-08-16T13:00:49Z"
   },
   {
    "name": "MiniRDPBlocker",
    "description": "A lightweight tool that automatically drops unwanted RDP sessions by client IP or geolocated country. Password-protected, runs as a hidden background blocker.",
    "stars": 1,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-08-14T00:17:08Z"
   },
   {
    "name": "PyFreeRdpNative",
    "description": "About PyFreeRdpNative is a remote desktop protocol library on cross-platforms for clients & servers compiled for python",
    "stars": 1,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-10-01T12:35:50Z"
   },
   {
    "name": "PyQtBuilder",
    "description": "Builds PyQt/PySide apps on multiple platforms",
    "stars": 1,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-06-07T09:35:24Z"
   },
   {
    "name": "ManyQt",
    "description": "Enables single-codebase support for PyQt4, PyQt5, PyQt6, PySide, PySide2 and PySide6 through a uniform API",
    "stars": 1,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-10-11T16:07:18Z"
   },
   {
    "name": "Usama01TN",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-10-12T13:22:28Z"
   },
   {
    "name": "InkpadExample",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-10-09T12:09:10Z"
   },
   {
    "name": "PricingCardExample",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-10-09T09:57:18Z"
   },
   {
    "name": "WhiteDarkThemeExample",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "CSS"
+   "language": "CSS",
+   "pushedAt": "2026-10-08T02:15:43Z"
   },
   {
    "name": "ColorChangerExample",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "CSS"
+   "language": "CSS",
+   "pushedAt": "2026-10-04T14:06:25Z"
   },
   {
    "name": "ShoppingCardExample",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-10-04T13:58:55Z"
   },
   {
    "name": "StrArrMathFunc",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "JavaScript"
+   "language": "JavaScript",
+   "pushedAt": "2026-10-01T10:33:55Z"
   },
   {
    "name": "FreeRdpCrossBuilder",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": null
+   "language": null,
+   "pushedAt": "2026-09-08T23:12:35Z"
   },
   {
    "name": "SimpleTodoListApi",
    "description": "Simple TodoList api for NodeJs",
    "stars": 0,
    "fork": false,
-   "language": "JavaScript"
+   "language": "JavaScript",
+   "pushedAt": "2026-09-08T09:38:10Z"
   },
   {
    "name": "AlgoProblems",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": null
+   "language": null,
+   "pushedAt": "2026-09-05T17:49:01Z"
   },
   {
    "name": "SentenceAnalysisAlgo",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": null
+   "language": null,
+   "pushedAt": "2026-09-05T16:14:21Z"
   },
   {
    "name": "ShopZone",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-09-05T15:18:16Z"
   },
   {
    "name": "LaBellaTavolaRestaurant",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-09-05T11:16:32Z"
   },
   {
    "name": "How_To_Linux",
    "description": "a linux_guide ..",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-09-01T08:56:52Z"
   },
   {
    "name": "PortfolioTemplate",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-10-07T16:16:20Z"
   },
   {
    "name": "foods_menu",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-08-18T12:41:13Z"
   },
   {
    "name": "portfolio-html",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "HTML"
+   "language": "HTML",
+   "pushedAt": "2026-08-17T11:14:55Z"
   },
   {
    "name": "learn_git",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": null
+   "language": null,
+   "pushedAt": "2026-07-07T14:17:13Z"
   },
   {
    "name": "my-first-project",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": null
+   "language": null,
+   "pushedAt": "2026-07-06T16:29:39Z"
   },
   {
    "name": "Maxipy",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": null
+   "language": null,
+   "pushedAt": "2026-07-06T14:27:01Z"
   },
   {
    "name": "py-ios-builder",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "Shell"
+   "language": "Shell",
+   "pushedAt": "2026-06-13T17:41:06Z"
   },
   {
    "name": "rdpyqt",
    "description": "Remote Desktop Protocol in Twisted Python",
    "stars": 0,
    "fork": true,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-04-09T01:32:12Z"
   },
   {
    "name": "NGL.LINK-BotherBot",
    "description": "is a lightweight tool that automates sending repeated NGL messages to selected usernames for casual, non-serious use.",
    "stars": 0,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-04-11T22:32:53Z"
   },
   {
    "name": "pyinstaller",
    "description": "Freeze (package) Python programs into stand-alone executables",
    "stars": 0,
    "fork": true,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2026-01-29T16:30:41Z"
   },
   {
    "name": "SteamFreeLicenseRemover",
    "description": "A simple JS code to remove free games & softwares from your Steam library.",
    "stars": 0,
    "fork": false,
-   "language": "JavaScript"
+   "language": "JavaScript",
+   "pushedAt": "2025-11-05T20:06:36Z"
   },
   {
    "name": "MicroFunc",
    "description": "",
    "stars": 0,
    "fork": false,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2025-04-26T10:03:34Z"
   },
   {
    "name": "QVariableStyleSheet",
    "description": "CSS variable processing support for QSS files",
    "stars": 0,
    "fork": true,
-   "language": "Python"
+   "language": "Python",
+   "pushedAt": "2025-03-27T21:04:47Z"
   },
   {
    "name": "QtFullCraft",
    "description": "QtFullCraft is a comprehensive framework based on Python, offering a rich set of professional widgets, core functionalities, GUI tools, and examples for both PyQt and PySide.",
    "stars": 0,
    "fork": false,
-   "language": null
+   "language": null,
+   "pushedAt": "2025-01-06T17:33:10Z"
   }
  ],
  "calendar": [
@@ -1729,5 +1766,5 @@
    "count": 4
   }
  ],
- "source": "GitHub API 2026-10-12"
+ "source": "GitHub API 2026-10-12 (+pushedAt)"
 }
