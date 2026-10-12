@@ -1,14 +1,63 @@
 {
  "login": "Usama01TN",
- "name": "Usama Aininou",
+ "name": "UsamaAininou",
  "followers": 7,
  "repos": [
   {
-   "name": "Usama01TN",
-   "description": "",
-   "stars": 0,
+   "name": "OcrRoute",
+   "description": "One API for 50+ OCR engines: smart routing, automatic fallbacks, caching, cost tracking, web dashboard and PyQt desktop app.",
+   "stars": 3,
    "fork": false,
-   "language": null
+   "language": "Python"
+  },
+  {
+   "name": "QuizKey",
+   "description": "Hotkey-driven AI quiz assistant for Chrome, powered by vision models (OpenAI, Claude, Gemini, OpenRouter, OmniRoute, Ollama, LM Studio\u2026)",
+   "stars": 2,
+   "fork": false,
+   "language": "JavaScript"
+  },
+  {
+   "name": "QFunnyWidgets",
+   "description": "Funny animated Qt widgets for PyQt and PySide: switches, loaders, sliders, toasts and more, each with a personality.",
+   "stars": 1,
+   "fork": false,
+   "language": "Python"
+  },
+  {
+   "name": "QRemoteDisplay",
+   "description": "A simple RDP connector based on PyFreeRdpNative and ManyQt for python.",
+   "stars": 1,
+   "fork": false,
+   "language": "Python"
+  },
+  {
+   "name": "TheWalkingDuckTaskBar",
+   "description": "A PyQt/PySide quacking duck that waddles across the Windows taskbar.",
+   "stars": 1,
+   "fork": false,
+   "language": "Python"
+  },
+  {
+   "name": "MiniRDPBlocker",
+   "description": "A lightweight tool that automatically drops unwanted RDP sessions by client IP or geolocated country. Password-protected, runs as a hidden background blocker.",
+   "stars": 1,
+   "fork": false,
+   "language": "Python"
+  },
+  {
+   "name": "PyFreeRdpNative",
+   "description": "About PyFreeRdpNative is a remote desktop protocol library on cross-platforms for clients & servers compiled for python",
+   "stars": 1,
+   "fork": false,
+   "language": "Python"
+  },
+  {
+   "name": "PyQtBuilder",
+   "description": "Builds PyQt/PySide apps on multiple platforms",
+   "stars": 1,
+   "fork": false,
+   "language": "Python"
   },
   {
    "name": "ManyQt",
@@ -18,9 +67,9 @@
    "language": "Python"
   },
   {
-   "name": "QFunnyWidgets",
-   "description": "Funny animated Qt widgets for PyQt and PySide: switches, loaders, sliders, toasts and more, each with a personality.",
-   "stars": 1,
+   "name": "Usama01TN",
+   "description": "",
+   "stars": 0,
    "fork": false,
    "language": "Python"
   },
@@ -46,13 +95,6 @@
    "language": "CSS"
   },
   {
-   "name": "PortfolioTemplate",
-   "description": "",
-   "stars": 0,
-   "fork": false,
-   "language": "HTML"
-  },
-  {
    "name": "ColorChangerExample",
    "description": "",
    "stars": 0,
@@ -67,37 +109,9 @@
    "language": "HTML"
   },
   {
-   "name": "PyFreeRdpNative",
-   "description": "About PyFreeRdpNative is a remote desktop protocol library on cross-platforms for clients & servers compiled for python",
-   "stars": 1,
-   "fork": false,
-   "language": "Python"
-  },
-  {
    "name": "StrArrMathFunc",
    "description": "",
    "stars": 0,
-   "fork": false,
-   "language": "JavaScript"
-  },
-  {
-   "name": "OcrRoute",
-   "description": "One API for 50+ OCR engines: smart routing, automatic fallbacks, caching, cost tracking, web dashboard and PyQt desktop app.",
-   "stars": 3,
-   "fork": false,
-   "language": "Python"
-  },
-  {
-   "name": "QRemoteDisplay",
-   "description": "A simple RDP connector based on PyFreeRdpNative and ManyQt for python.",
-   "stars": 1,
-   "fork": false,
-   "language": "Python"
-  },
-  {
-   "name": "QuizKey",
-   "description": "Hotkey-driven AI quiz assistant for Chrome, powered by vision models (OpenAI, Claude, Gemini, OpenRouter, OmniRoute, Ollama, LM Studio\u2026)",
-   "stars": 2,
    "fork": false,
    "language": "JavaScript"
   },
@@ -151,6 +165,13 @@
    "language": "HTML"
   },
   {
+   "name": "PortfolioTemplate",
+   "description": "",
+   "stars": 0,
+   "fork": false,
+   "language": "HTML"
+  },
+  {
    "name": "foods_menu",
    "description": "",
    "stars": 0,
@@ -163,20 +184,6 @@
    "stars": 0,
    "fork": false,
    "language": "HTML"
-  },
-  {
-   "name": "TheWalkingDuckTaskBar",
-   "description": "A PyQt/PySide quacking duck that waddles across the Windows taskbar.",
-   "stars": 1,
-   "fork": false,
-   "language": "Python"
-  },
-  {
-   "name": "MiniRDPBlocker",
-   "description": "A lightweight tool that automatically drops unwanted RDP sessions by client IP or geolocated country. Password-protected, runs as a hidden background blocker.",
-   "stars": 1,
-   "fork": false,
-   "language": "Python"
   },
   {
    "name": "learn_git",
@@ -207,10 +214,10 @@
    "language": "Shell"
   },
   {
-   "name": "PyQtBuilder",
-   "description": "Builds PyQt/PySide apps on multiple platforms",
-   "stars": 1,
-   "fork": false,
+   "name": "rdpyqt",
+   "description": "Remote Desktop Protocol in Twisted Python",
+   "stars": 0,
+   "fork": true,
    "language": "Python"
   },
   {
@@ -218,13 +225,6 @@
    "description": "is a lightweight tool that automates sending repeated NGL messages to selected usernames for casual, non-serious use.",
    "stars": 0,
    "fork": false,
-   "language": "Python"
-  },
-  {
-   "name": "rdpyqt",
-   "description": "Remote Desktop Protocol in Twisted Python",
-   "stars": 0,
-   "fork": true,
    "language": "Python"
   },
   {
@@ -1729,5 +1729,5 @@
    "count": 2
   }
  ],
- "source": "snapshot 2026-10-12"
+ "source": "GitHub API 2026-10-12"
 }
