@@ -6,7 +6,6 @@ Cross-platform software developer: desktop, mobile and web.
 
 <a href="mailto:ininou.oussematn@gmail.com"><img src="https://img.shields.io/badge/Email-ininou.oussematn%40gmail.com-FF6FA3?style=for-the-badge&logo=gmail&logoColor=white&labelColor=16113A" height="28" alt="Email"/></a>&nbsp;
 <a href="https://github.com/Usama01TN?tab=followers"><img src="https://img.shields.io/github/followers/Usama01TN?style=for-the-badge&logo=github&logoColor=white&label=Followers&labelColor=16113A&color=6D4AFF" height="28" alt="GitHub followers"/></a>&nbsp;
-<img src="https://komarev.com/ghpvc/?username=Usama01TN&label=Profile%20views&color=6D4AFF&style=for-the-badge&abbreviated=true" height="28" alt="Profile views"/>
 
 </div>
 
