@@ -51,14 +51,6 @@ const usama = {
   <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
 </picture>
 
-<img src="./assets/toolbox.svg" width="100%" alt="Toolbox: C++, Qt, Python, PyQt, PySide, TypeScript, JavaScript, React, Node.js, HTML, CSS; Windows, macOS, Linux, Android, iOS, Web"/>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/toolbox-dark.svg"/>
-  <source media="(prefers-color-scheme: light)" srcset="./assets/headers/toolbox-light.svg"/>
-  <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
-</picture>
-
 <p align="center">
   <img src="https://skillicons.dev/icons?i=ts,js,react,nodejs,html,css,py&theme=dark&perline=7" height="56" alt="TypeScript, JavaScript, React, Node.js, HTML, CSS, Python"/>
   <br/>
