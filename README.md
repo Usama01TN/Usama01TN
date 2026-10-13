@@ -42,15 +42,7 @@ const usama = {
 <img src="./assets/projects.svg" width="100%" alt="Projects: OcrRoute, QuizKey, ManyQt, QFunnyWidgets, TheWalkingDuckTaskBar, PyQtBuilder, QRemoteDisplay, MiniRDPBlocker"/>
 
 <p align="center">
-  <a href="https://github.com/Usama01TN/OcrRoute">OcrRoute</a> ·
-  <a href="https://github.com/Usama01TN/QuizKey">QuizKey</a> ·
-  <a href="https://github.com/Usama01TN/ManyQt">ManyQt</a> ·
-  <a href="https://github.com/Usama01TN/QFunnyWidgets">QFunnyWidgets</a> ·
-  <a href="https://github.com/Usama01TN/TheWalkingDuckTaskBar">TheWalkingDuckTaskBar</a> ·
-  <a href="https://github.com/Usama01TN/PyQtBuilder">PyQtBuilder</a> ·
-  <a href="https://github.com/Usama01TN/QRemoteDisplay">QRemoteDisplay</a> ·
-  <a href="https://github.com/Usama01TN/MiniRDPBlocker">MiniRDPBlocker</a> ·
-  <a href="https://github.com/Usama01TN?tab=repositories"><b>all repositories</b></a>
+  <a href="https://github.com/Usama01TN?tab=repositories"><b>View all repositories</b></a>
 </p>
 
 <picture>
