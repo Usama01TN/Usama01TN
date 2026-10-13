@@ -29,8 +29,10 @@ const usama = {
   onGitHub:  { repos: 33, stars: 12, topLanguages: ["Python", "HTML", "JavaScript", "CSS"] },
   debugger:  "a rubber duck",            // 100% success rate, 0% salary
   status:    (coffee: boolean) => coffee ? "shipping" : "compiling...",
-} as const;
+} as const;   // onGitHub is refreshed daily by a GitHub Action
 ```
+
+<img src="./assets/recent.svg" width="100%" alt="Right now: the repositories I pushed to most recently"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/projects-dark.svg"/>
@@ -41,6 +43,14 @@ const usama = {
 <img src="./assets/projects.svg" width="100%" alt="Projects: OcrRoute, QuizKey, ManyQt, QFunnyWidgets, TheWalkingDuckTaskBar, PyQtBuilder, QRemoteDisplay, MiniRDPBlocker"/>
 
 <p align="center">
+  <a href="https://github.com/Usama01TN/OcrRoute">OcrRoute</a> ·
+  <a href="https://github.com/Usama01TN/QuizKey">QuizKey</a> ·
+  <a href="https://github.com/Usama01TN/ManyQt">ManyQt</a> ·
+  <a href="https://github.com/Usama01TN/QFunnyWidgets">QFunnyWidgets</a> ·
+  <a href="https://github.com/Usama01TN/TheWalkingDuckTaskBar">TheWalkingDuckTaskBar</a> ·
+  <a href="https://github.com/Usama01TN/PyQtBuilder">PyQtBuilder</a> ·
+  <a href="https://github.com/Usama01TN/QRemoteDisplay">QRemoteDisplay</a> ·
+  <a href="https://github.com/Usama01TN/MiniRDPBlocker">MiniRDPBlocker</a> ·
   <a href="https://github.com/Usama01TN?tab=repositories"><b>all repositories</b></a>
 </p>
 
