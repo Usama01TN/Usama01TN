@@ -32,7 +32,6 @@ const usama = {
 } as const;   // onGitHub is refreshed daily by a GitHub Action
 ```
 
-<img src="./assets/recent.svg" width="100%" alt="Right now: the repositories I pushed to most recently"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/projects-dark.svg"/>
