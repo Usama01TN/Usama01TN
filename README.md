@@ -59,7 +59,11 @@ const usama = {
   <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
 </picture>
 
-<img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions, activity, languages, weekdays and contribution calendar"/>
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=ts,js,react,nodejs,html,css,py&theme=dark&perline=7" height="56" alt="TypeScript, JavaScript, React, Node.js, HTML, CSS, Python"/>
+  <br/>
+  <img src="https://skillicons.dev/icons?i=cpp,qt,git,github,vscode,linux,windows&theme=dark&perline=7" height="56" alt="C++, Qt, Git, GitHub, VS Code, Linux, Windows"/>
+</p>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/support-dark.svg"/>
