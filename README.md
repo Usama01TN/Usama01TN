@@ -54,9 +54,9 @@ const usama = {
 <img src="./assets/toolbox.svg" width="100%" alt="Toolbox: C++, Qt, Python, PyQt, PySide, TypeScript, JavaScript, React, Node.js, HTML, CSS; Windows, macOS, Linux, Android, iOS, Web"/>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/stats-dark.svg"/>
-  <source media="(prefers-color-scheme: light)" srcset="./assets/headers/stats-light.svg"/>
-  <img src="./assets/headers/stats-dark.svg" width="100%" alt="By the numbers"/>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/toolbox-dark.svg"/>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/headers/toolbox-light.svg"/>
+  <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
 </picture>
 
 <img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions, activity, languages, weekdays and contribution calendar"/>
