@@ -1,6 +1,8 @@
 # Keeps the profile README alive on its own: fetches GitHub data, redraws every image,
 # rewrites README.md and commits. Nothing here depends on third-party actions or services,
 # only on git, python3 (both preinstalled on GitHub's runners) and GitHub's own API.
+# Toolbox icons are cached in data/icons.json; a pinned icon set is downloaded only
+# when a new language, framework or platform shows up in your repos.
 name: Refresh profile README
 
 on:
