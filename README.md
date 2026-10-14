@@ -32,6 +32,7 @@ const usama = {
 } as const;   // onGitHub is refreshed daily by a GitHub Action
 ```
 
+<img src="./assets/recent.svg" width="100%" alt="Right now: the repositories I pushed to most recently"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/projects-dark.svg"/>
@@ -42,7 +43,15 @@ const usama = {
 <img src="./assets/projects.svg" width="100%" alt="Projects: OcrRoute, QuizKey, ManyQt, QFunnyWidgets, TheWalkingDuckTaskBar, PyQtBuilder, QRemoteDisplay, MiniRDPBlocker"/>
 
 <p align="center">
-  <a href="https://github.com/Usama01TN?tab=repositories"><b>View all repositories</b></a>
+  <a href="https://github.com/Usama01TN/OcrRoute">OcrRoute</a> ·
+  <a href="https://github.com/Usama01TN/QuizKey">QuizKey</a> ·
+  <a href="https://github.com/Usama01TN/ManyQt">ManyQt</a> ·
+  <a href="https://github.com/Usama01TN/QFunnyWidgets">QFunnyWidgets</a> ·
+  <a href="https://github.com/Usama01TN/TheWalkingDuckTaskBar">TheWalkingDuckTaskBar</a> ·
+  <a href="https://github.com/Usama01TN/PyQtBuilder">PyQtBuilder</a> ·
+  <a href="https://github.com/Usama01TN/QRemoteDisplay">QRemoteDisplay</a> ·
+  <a href="https://github.com/Usama01TN/MiniRDPBlocker">MiniRDPBlocker</a> ·
+  <a href="https://github.com/Usama01TN?tab=repositories"><b>all repositories</b></a>
 </p>
 
 <picture>
@@ -51,11 +60,15 @@ const usama = {
   <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
 </picture>
 
-<p align="center">
-  <img src="https://skillicons.dev/icons?i=ts,js,react,nodejs,html,css,py&theme=dark&perline=7" height="56" alt="TypeScript, JavaScript, React, Node.js, HTML, CSS, Python"/>
-  <br/>
-  <img src="https://skillicons.dev/icons?i=cpp,qt,git,github,vscode,linux,windows&theme=dark&perline=7" height="56" alt="C++, Qt, Git, GitHub, VS Code, Linux, Windows"/>
-</p>
+<img src="./assets/toolbox.svg" width="100%" alt="Toolbox: C++, Qt, Python, PyQt, PySide, TypeScript, JavaScript, React, Node.js, HTML, CSS; Windows, macOS, Linux, Android, iOS, Web"/>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/stats-dark.svg"/>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/headers/stats-light.svg"/>
+  <img src="./assets/headers/stats-dark.svg" width="100%" alt="By the numbers"/>
+</picture>
+
+<img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions, activity, languages, weekdays and contribution calendar"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/support-dark.svg"/>
