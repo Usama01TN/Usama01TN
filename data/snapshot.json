@@ -9,7 +9,16 @@
    "stars": 3,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-09-30T15:15:54Z"
+   "pushedAt": "2026-09-30T15:15:54Z",
+   "languages": {
+    "Python": 1774185,
+    "HTML": 166966,
+    "JavaScript": 23261,
+    "Makefile": 964,
+    "Dockerfile": 758,
+    "Mako": 476
+   },
+   "topics": []
   },
   {
    "name": "QuizKey",
@@ -17,7 +26,14 @@
    "stars": 2,
    "fork": false,
    "language": "JavaScript",
-   "pushedAt": "2026-09-15T00:15:15Z"
+   "pushedAt": "2026-09-15T00:15:15Z",
+   "languages": {
+    "JavaScript": 171108,
+    "TypeScript": 103616,
+    "CSS": 37412,
+    "HTML": 22656
+   },
+   "topics": []
   },
   {
    "name": "QFunnyWidgets",
@@ -25,7 +41,26 @@
    "stars": 1,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-10-11T15:26:38Z"
+   "pushedAt": "2026-10-11T15:26:38Z",
+   "languages": {
+    "Python": 971215
+   },
+   "topics": [
+    "animation",
+    "custom-widgets",
+    "funny",
+    "gui",
+    "pyqt",
+    "pyqt5",
+    "pyqt6",
+    "pyside",
+    "pyside6",
+    "python",
+    "qt",
+    "qt-designer",
+    "widgets",
+    "manyqt"
+   ]
   },
   {
    "name": "QRemoteDisplay",
@@ -33,7 +68,11 @@
    "stars": 1,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-09-18T20:02:15Z"
+   "pushedAt": "2026-09-18T20:02:15Z",
+   "languages": {
+    "Python": 73211
+   },
+   "topics": []
   },
   {
    "name": "TheWalkingDuckTaskBar",
@@ -41,7 +80,11 @@
    "stars": 1,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-08-16T13:00:49Z"
+   "pushedAt": "2026-08-16T13:00:49Z",
+   "languages": {
+    "Python": 50682
+   },
+   "topics": []
   },
   {
    "name": "MiniRDPBlocker",
@@ -49,7 +92,11 @@
    "stars": 1,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-08-14T00:17:08Z"
+   "pushedAt": "2026-08-14T00:17:08Z",
+   "languages": {
+    "Python": 128509
+   },
+   "topics": []
   },
   {
    "name": "PyFreeRdpNative",
@@ -57,7 +104,12 @@
    "stars": 1,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-10-01T12:35:50Z"
+   "pushedAt": "2026-10-01T12:35:50Z",
+   "languages": {
+    "Python": 2743282,
+    "CMake": 3592
+   },
+   "topics": []
   },
   {
    "name": "PyQtBuilder",
@@ -65,7 +117,12 @@
    "stars": 1,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-06-07T09:35:24Z"
+   "pushedAt": "2026-06-07T09:35:24Z",
+   "languages": {
+    "Python": 859312,
+    "Qt Script": 3882
+   },
+   "topics": []
   },
   {
    "name": "ManyQt",
@@ -73,7 +130,11 @@
    "stars": 1,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-10-11T16:07:18Z"
+   "pushedAt": "2026-10-11T16:07:18Z",
+   "languages": {
+    "Python": 425498
+   },
+   "topics": []
   },
   {
    "name": "Usama01TN",
@@ -81,7 +142,11 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-10-13T17:49:10Z"
+   "pushedAt": "2026-10-14T11:20:37Z",
+   "languages": {
+    "Python": 55275
+   },
+   "topics": []
   },
   {
    "name": "InkpadExample",
@@ -89,7 +154,11 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-10-09T12:09:10Z"
+   "pushedAt": "2026-10-09T12:09:10Z",
+   "languages": {
+    "HTML": 23865
+   },
+   "topics": []
   },
   {
    "name": "PricingCardExample",
@@ -97,7 +166,11 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-10-09T09:57:18Z"
+   "pushedAt": "2026-10-09T09:57:18Z",
+   "languages": {
+    "HTML": 7207
+   },
+   "topics": []
   },
   {
    "name": "WhiteDarkThemeExample",
@@ -105,7 +178,13 @@
    "stars": 0,
    "fork": false,
    "language": "CSS",
-   "pushedAt": "2026-10-08T02:15:43Z"
+   "pushedAt": "2026-10-08T02:15:43Z",
+   "languages": {
+    "CSS": 2947,
+    "HTML": 1890,
+    "JavaScript": 608
+   },
+   "topics": []
   },
   {
    "name": "ColorChangerExample",
@@ -113,7 +192,13 @@
    "stars": 0,
    "fork": false,
    "language": "CSS",
-   "pushedAt": "2026-10-04T14:06:25Z"
+   "pushedAt": "2026-10-04T14:06:25Z",
+   "languages": {
+    "CSS": 908,
+    "JavaScript": 558,
+    "HTML": 461
+   },
+   "topics": []
   },
   {
    "name": "ShoppingCardExample",
@@ -121,7 +206,13 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-10-04T13:58:55Z"
+   "pushedAt": "2026-10-04T13:58:55Z",
+   "languages": {
+    "HTML": 6477,
+    "JavaScript": 1558,
+    "CSS": 929
+   },
+   "topics": []
   },
   {
    "name": "StrArrMathFunc",
@@ -129,7 +220,11 @@
    "stars": 0,
    "fork": false,
    "language": "JavaScript",
-   "pushedAt": "2026-10-01T10:33:55Z"
+   "pushedAt": "2026-10-01T10:33:55Z",
+   "languages": {
+    "JavaScript": 4730
+   },
+   "topics": []
   },
   {
    "name": "FreeRdpCrossBuilder",
@@ -137,7 +232,9 @@
    "stars": 0,
    "fork": false,
    "language": null,
-   "pushedAt": "2026-09-08T23:12:35Z"
+   "pushedAt": "2026-09-08T23:12:35Z",
+   "languages": {},
+   "topics": []
   },
   {
    "name": "SimpleTodoListApi",
@@ -145,7 +242,11 @@
    "stars": 0,
    "fork": false,
    "language": "JavaScript",
-   "pushedAt": "2026-09-08T09:38:10Z"
+   "pushedAt": "2026-09-08T09:38:10Z",
+   "languages": {
+    "JavaScript": 2604
+   },
+   "topics": []
   },
   {
    "name": "AlgoProblems",
@@ -153,7 +254,9 @@
    "stars": 0,
    "fork": false,
    "language": null,
-   "pushedAt": "2026-09-05T17:49:01Z"
+   "pushedAt": "2026-09-05T17:49:01Z",
+   "languages": {},
+   "topics": []
   },
   {
    "name": "SentenceAnalysisAlgo",
@@ -161,7 +264,9 @@
    "stars": 0,
    "fork": false,
    "language": null,
-   "pushedAt": "2026-09-05T16:14:21Z"
+   "pushedAt": "2026-09-05T16:14:21Z",
+   "languages": {},
+   "topics": []
   },
   {
    "name": "ShopZone",
@@ -169,7 +274,12 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-09-05T15:18:16Z"
+   "pushedAt": "2026-09-05T15:18:16Z",
+   "languages": {
+    "HTML": 14938,
+    "CSS": 13367
+   },
+   "topics": []
   },
   {
    "name": "LaBellaTavolaRestaurant",
@@ -177,7 +287,11 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-09-05T11:16:32Z"
+   "pushedAt": "2026-09-05T11:16:32Z",
+   "languages": {
+    "HTML": 10472
+   },
+   "topics": []
   },
   {
    "name": "How_To_Linux",
@@ -185,7 +299,13 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-09-01T08:56:52Z"
+   "pushedAt": "2026-09-01T08:56:52Z",
+   "languages": {
+    "HTML": 204827,
+    "CSS": 32832,
+    "JavaScript": 23562
+   },
+   "topics": []
   },
   {
    "name": "PortfolioTemplate",
@@ -193,7 +313,12 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-10-07T16:16:20Z"
+   "pushedAt": "2026-10-07T16:16:20Z",
+   "languages": {
+    "HTML": 12346,
+    "CSS": 10624
+   },
+   "topics": []
   },
   {
    "name": "foods_menu",
@@ -201,7 +326,11 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-08-18T12:41:13Z"
+   "pushedAt": "2026-08-18T12:41:13Z",
+   "languages": {
+    "HTML": 2383
+   },
+   "topics": []
   },
   {
    "name": "portfolio-html",
@@ -209,7 +338,11 @@
    "stars": 0,
    "fork": false,
    "language": "HTML",
-   "pushedAt": "2026-08-17T11:14:55Z"
+   "pushedAt": "2026-08-17T11:14:55Z",
+   "languages": {
+    "HTML": 4218
+   },
+   "topics": []
   },
   {
    "name": "learn_git",
@@ -217,7 +350,9 @@
    "stars": 0,
    "fork": false,
    "language": null,
-   "pushedAt": "2026-07-07T14:17:13Z"
+   "pushedAt": "2026-07-07T14:17:13Z",
+   "languages": {},
+   "topics": []
   },
   {
    "name": "my-first-project",
@@ -225,7 +360,9 @@
    "stars": 0,
    "fork": false,
    "language": null,
-   "pushedAt": "2026-07-06T16:29:39Z"
+   "pushedAt": "2026-07-06T16:29:39Z",
+   "languages": {},
+   "topics": []
   },
   {
    "name": "Maxipy",
@@ -233,7 +370,9 @@
    "stars": 0,
    "fork": false,
    "language": null,
-   "pushedAt": "2026-07-06T14:27:01Z"
+   "pushedAt": "2026-07-06T14:27:01Z",
+   "languages": {},
+   "topics": []
   },
   {
    "name": "py-ios-builder",
@@ -241,7 +380,12 @@
    "stars": 0,
    "fork": false,
    "language": "Shell",
-   "pushedAt": "2026-06-13T17:41:06Z"
+   "pushedAt": "2026-06-13T17:41:06Z",
+   "languages": {
+    "Shell": 38545,
+    "Python": 35160
+   },
+   "topics": []
   },
   {
    "name": "rdpyqt",
@@ -249,7 +393,12 @@
    "stars": 0,
    "fork": true,
    "language": "Python",
-   "pushedAt": "2026-10-14T03:46:34Z"
+   "pushedAt": "2026-10-14T03:46:34Z",
+   "languages": {
+    "Python": 817882,
+    "Cython": 157742
+   },
+   "topics": []
   },
   {
    "name": "NGL.LINK-BotherBot",
@@ -257,7 +406,11 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-04-11T22:32:53Z"
+   "pushedAt": "2026-04-11T22:32:53Z",
+   "languages": {
+    "Python": 56385
+   },
+   "topics": []
   },
   {
    "name": "pyinstaller",
@@ -265,7 +418,17 @@
    "stars": 0,
    "fork": true,
    "language": "Python",
-   "pushedAt": "2026-01-29T16:30:41Z"
+   "pushedAt": "2026-01-29T16:30:41Z",
+   "languages": {
+    "Python": 3073786,
+    "C": 1365254,
+    "Shell": 10400,
+    "Dockerfile": 2251,
+    "TeX": 2118,
+    "Batchfile": 66,
+    "SWIG": 21
+   },
+   "topics": []
   },
   {
    "name": "SteamFreeLicenseRemover",
@@ -273,7 +436,11 @@
    "stars": 0,
    "fork": false,
    "language": "JavaScript",
-   "pushedAt": "2025-11-05T20:06:36Z"
+   "pushedAt": "2025-11-05T20:06:36Z",
+   "languages": {
+    "JavaScript": 8944
+   },
+   "topics": []
   },
   {
    "name": "MicroFunc",
@@ -281,7 +448,11 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2025-04-26T10:03:34Z"
+   "pushedAt": "2025-04-26T10:03:34Z",
+   "languages": {
+    "Python": 11874
+   },
+   "topics": []
   },
   {
    "name": "QVariableStyleSheet",
@@ -289,7 +460,12 @@
    "stars": 0,
    "fork": true,
    "language": "Python",
-   "pushedAt": "2025-03-27T21:04:47Z"
+   "pushedAt": "2025-03-27T21:04:47Z",
+   "languages": {
+    "Python": 3208,
+    "C++": 2853
+   },
+   "topics": []
   },
   {
    "name": "QtFullCraft",
@@ -297,7 +473,9 @@
    "stars": 0,
    "fork": false,
    "language": null,
-   "pushedAt": "2025-01-06T17:33:10Z"
+   "pushedAt": "2025-01-06T17:33:10Z",
+   "languages": {},
+   "topics": []
   }
  ],
  "calendar": [

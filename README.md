@@ -58,7 +58,7 @@ const usama = {
   <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
 </picture>
 
-<img src="./assets/toolbox.svg" width="100%" alt="Toolbox. Languages: Python, HTML, JavaScript, CSS, Shell, C++, TypeScript. Frameworks: Qt, PyQt, PySide, Node.js, React. Platforms: Windows, Linux, iOS, macOS, Android"/>
+<img src="./assets/toolbox.svg" width="100%" alt="Toolbox. Languages: Python, HTML, JavaScript, CSS, TypeScript, Shell, C++. Frameworks: Qt, PyQt, PySide, Node.js, React. Platforms: Windows, Linux, iOS, macOS, Android"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/stats-dark.svg"/>
