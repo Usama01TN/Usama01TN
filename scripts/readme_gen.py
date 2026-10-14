@@ -155,7 +155,9 @@ def duck(walking=False, scale=1.0):
 # ------------------------------------------------------------------- data ---
 GQL = '''query($login:String!){user(login:$login){name login followers{totalCount}
 repositories(ownerAffiliations:OWNER,first:100,privacy:PUBLIC,orderBy:{field:STARGAZERS,direction:DESC}){
- nodes{name description stargazerCount isFork pushedAt primaryLanguage{name}}}
+ nodes{name description stargazerCount isFork pushedAt primaryLanguage{name}
+  languages(first:10,orderBy:{field:SIZE,direction:DESC}){edges{size node{name}}}
+  repositoryTopics(first:20){nodes{topic{name}}}}}
 contributionsCollection{contributionCalendar{weeks{contributionDays{date contributionCount}}}}}}'''
 
 
@@ -181,7 +183,9 @@ def fetch_live(token, snap_path):
         data = {'login': u['login'], 'name': u['name'] or u['login'], 'followers': u['followers']['totalCount'],
                 'repos': [{'name': r['name'], 'description': r['description'] or '', 'stars': r['stargazerCount'],
                            'fork': r['isFork'], 'language': (r['primaryLanguage'] or {}).get('name'),
-                           'pushedAt': r.get('pushedAt')}
+                           'pushedAt': r.get('pushedAt'),
+                           'languages': {e['node']['name']: e['size'] for e in (r.get('languages') or {}).get('edges', [])},
+                           'topics': [t['topic']['name'] for t in (r.get('repositoryTopics') or {}).get('nodes', [])]}
                           for r in u['repositories']['nodes']],
                 'calendar': [{'date': d['date'], 'count': d['contributionCount']}
                              for w in u['contributionsCollection']['contributionCalendar']['weeks']
@@ -237,7 +241,7 @@ def sections(data):
     return [  # (id, glyph, accent, title, subtitle)
         ('about', '{ }', CYAN, 'About me', 'desktop, mobile and web, often from one codebase'),
         ('projects', '</>', PINK, "Things I've built", 'open source, for desktop, mobile and the web'),
-        ('toolbox', '#', AMBER, 'Toolbox', 'what I reach for, from C++ to CSS'),
+        ('toolbox', '#', AMBER, 'Toolbox', 'languages, frameworks and platforms, picked up from my repos daily'),
         ('stats', '%', MINT, 'By the numbers', f'redrawn every day, last run {TODAY.strftime("%d %b %Y")}'),
         ('support', '<3', PINK, 'Support my work', 'optional, appreciated, mostly converted into coffee'),
         ('contact', '@', VIOLET, "Let's talk", 'freelance, collaborations, well-written bug reports'),
@@ -396,31 +400,273 @@ def make_badges(data):
     badge('Ba9chich', 'Leave a tip', CYAN, 'ba9chich', LOGO_HEART)
 
 
-TOOLBOX = [  # (group, accent, items) -- plain text chips, no logos to break or expire
-    ('Native', CYAN, ['C++', 'Qt', 'Python', 'PyQt', 'PySide']),
-    ('Web', PINK, ['TypeScript', 'JavaScript', 'React', 'Node.js', 'HTML', 'CSS']),
-    ('Platforms', MINT, ['Windows', 'macOS', 'Linux', 'Android', 'iOS', 'Web']),
-    ('Also', AMBER, ['OCR', 'RDP', 'LLM APIs', 'Git', 'CI']),
+# ------------------------------------------------------------- toolbox ---
+# The toolbox is an automatic icon grid. Every run it looks at your public repos (languages
+# GitHub detects, topics, names and descriptions), merges what it finds with the BASELINE you
+# declare below, and draws one icon tile per item. Push a Rust repo tomorrow and a Rust tile
+# appears the day after, with no edit to this file.
+#
+# Icons come from Simple Icons (CC0) and, for brands Simple Icons doesn't carry (Windows, C#,
+# Java...), from Devicon (MIT). Both are pinned versions, downloaded only when a NEW item needs
+# an icon, and cached in data/icons.json, so a normal daily run makes no extra network calls.
+# Anything without an icon still gets a tile, drawn as a monogram.
+SIMPLE_ICONS = '16.33.0'
+DEVICON = 'v2.17.0'
+
+TOOLBOX_GROUPS = [  # (group, accent)
+    ('Languages', CYAN),
+    ('Frameworks', PINK),
+    ('Platforms', MINT),
 ]
+BASELINE = {  # always shown, even before any public repo proves it
+    'Languages': ['C++', 'Python', 'TypeScript', 'JavaScript', 'HTML', 'CSS'],
+    'Frameworks': ['Qt', 'PyQt', 'PySide', 'React', 'Node.js'],
+    'Platforms': ['Windows', 'macOS', 'Linux', 'Android', 'iOS'],
+}
+HIDDEN = {'Makefile', 'CMake', 'QMake', 'Batchfile', 'Dockerfile', 'Procfile', 'Roff', 'Jupyter Notebook',
+          'Inno Setup', 'NSIS', 'Smarty', 'Mako', 'Jinja', 'SCSS', 'Less'}   # never shown as tiles
+LANG_SHARE = .10  # a language counts for a repo when it's the primary one or at least 10% of its code
+# Keyword rules for frameworks and platforms: regexes matched as whole words against each repo's
+# name (also split on CamelCase), description and topics. Add a line to teach it something new.
+DETECT = {
+    'Frameworks': [
+        ('Qt', r'qt\d?|qml|qss|qtquick|pyqt\d?|pyside\d?'),
+        ('PyQt', r'pyqt\d?'),
+        ('PySide', r'pyside\d?'),
+        ('React', r'react|reactjs|react native|jsx'),
+        ('Node.js', r'node|nodejs|node js|npm'),
+        ('Express', r'express|expressjs'),
+        ('Electron', r'electron'),
+        ('Vue.js', r'vue|vuejs'),
+        ('Next.js', r'next js|nextjs'),
+        ('Flask', r'flask'),
+        ('Django', r'django'),
+        ('FastAPI', r'fastapi'),
+        ('Flutter', r'flutter'),
+        ('Tailwind CSS', r'tailwind|tailwindcss'),
+        ('Bootstrap', r'bootstrap'),
+        ('jQuery', r'jquery'),
+        ('OpenCV', r'opencv|cv2'),
+        ('.NET', r'dotnet|\.net'),
+    ],
+    'Platforms': [
+        ('Windows', r'windows|win32|win64|winapi|taskbar'),
+        ('macOS', r'macos|mac os|osx|os x'),
+        ('Linux', r'linux|ubuntu|debian|fedora|arch linux'),
+        ('Android', r'android|apk'),
+        ('iOS', r'ios|iphone|ipad'),
+    ],
+}
+# How a name maps to an icon: 'slug' = Simple Icons, 'devicon:name' = Devicon,
+# a tuple = main icon plus a small badge icon. Unlisted names are looked up by title automatically.
+ICON_ALIASES = {
+    'C++': 'cplusplus', 'HTML': 'html5', 'Shell': 'gnubash', 'Node.js': 'nodedotjs',
+    'PyQt': ('qt', 'python'), 'PySide': ('qt', 'python'),
+    'macOS': 'apple', 'iOS': 'apple', 'Windows': 'devicon:windows11', 'C#': 'devicon:csharp', 'Java': 'devicon:java',
+    'PowerShell': 'devicon:powershell', 'Visual Basic .NET': 'devicon:visualbasic',
+    'Objective-C': 'devicon:objectivec', 'Assembly': 'devicon:embeddedc',
+}
+SHORT_LABEL = {'Tailwind CSS': 'Tailwind', 'Visual Basic .NET': 'VB.NET', 'Objective-C': 'Obj-C'}
 
 
-def make_toolbox():
+def _words(repo):
+    """Lower-case text of a repo for keyword matching, with CamelCase and separators split."""
+    import re
+    name = repo['name']
+    camel = re.sub(r'(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])', ' ', name)
+    parts = [name, camel, repo.get('description') or '', ' '.join(repo.get('topics') or [])]
+    text = ' '.join(parts).lower()
+    return ' ' + re.sub(r'[_\-/,;:()\[\]|!?"]+', ' ', text) + ' '
+
+
+def detect_toolbox(data):
+    """{group: [(name, repo_count), ...]} merged from BASELINE and what the repos show."""
+    import re
+    own = own_repos(data)
+    found = {g: collections.Counter() for g, _ in TOOLBOX_GROUPS}
+    for r in own:
+        langs = dict(r.get('languages') or {})
+        total = sum(langs.values()) or 1
+        used = {l for l, size in langs.items() if size / total >= LANG_SHARE}
+        if r.get('language'):
+            used.add(r['language'])
+        for l in used - HIDDEN:
+            found['Languages'][l] += 1
+        text = _words(r)
+        for group, rules in DETECT.items():
+            for name, pattern in rules:
+                if re.search(rf'(?<![a-z0-9])(?:{pattern})(?![a-z0-9])', text):
+                    found[group][name] += 1
+    out = {}
+    for group, _ in TOOLBOX_GROUPS:
+        base = BASELINE.get(group, [])
+        names = list(dict.fromkeys(base + [n for n, _ in found[group].most_common()]))
+        order = {n: i for i, n in enumerate(names)}
+        names.sort(key=lambda n: (-found[group][n], order[n]))
+        out[group] = [(n, found[group][n]) for n in names[:16]]
+    return out
+
+
+# ------------------------------------------------------------ icon cache ---
+ICON_CACHE = os.path.join(ROOT, 'data', 'icons.json')
+_SI = {}
+
+
+def _simple_icons():
+    """Simple Icons metadata and paths, from the pinned npm tarball. Downloaded at most once a run."""
+    if not _SI:
+        import io, re, tarfile
+        url = f'https://registry.npmjs.org/simple-icons/-/simple-icons-{SIMPLE_ICONS}.tgz'
+        print(f'  downloading simple-icons {SIMPLE_ICONS}')
+        raw = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'readme-gen'}), timeout=60).read()
+        with tarfile.open(fileobj=io.BytesIO(raw), mode='r:gz') as tar:
+            meta = json.load(tar.extractfile('package/data/simple-icons.json'))
+            paths = {}
+            for m in tar.getmembers():
+                if m.name.startswith('package/icons/') and m.name.endswith('.svg'):
+                    svg = tar.extractfile(m).read().decode()
+                    p = re.search(r'<path d="([^"]+)"', svg)
+                    if p:
+                        paths[m.name[14:-4]] = p.group(1)
+        _SI['meta'] = {x['slug']: x for x in meta}
+        _SI['title'] = {x['title'].lower(): x['slug'] for x in meta}
+        _SI['paths'] = paths
+    return _SI
+
+
+def _si_icon(slug_or_title):
+    si = _simple_icons()
+    slug = slug_or_title if slug_or_title in si['meta'] else si['title'].get(slug_or_title.lower())
+    if not slug or slug not in si['paths']:
+        return None
+    return {'src': f'simple-icons@{SIMPLE_ICONS}', 'viewBox': '0 0 24 24', 'color': '#' + si['meta'][slug]['hex'],
+            'body': f'<path d="{si["paths"][slug]}"/>'}
+
+
+def _devicon(name):
+    import re
+    for variant in ('original', 'plain'):
+        url = f'https://raw.githubusercontent.com/devicons/devicon/{DEVICON}/icons/{name}/{name}-{variant}.svg'
+        try:
+            svg = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'readme-gen'}), timeout=30).read().decode()
+        except Exception:
+            continue
+        vb = re.search(r'viewBox="([^"]+)"', svg)
+        body = re.sub(r'^.*?<svg[^>]*>|</svg>\s*$', '', svg.strip(), flags=re.S)
+        body = re.sub(r'<title>.*?</title>|<!--.*?-->', '', body, flags=re.S)
+        return {'src': f'devicon@{DEVICON}', 'viewBox': vb.group(1) if vb else '0 0 128 128', 'color': None, 'body': body}
+    return None
+
+
+def _resolve(key):
+    """One icon by alias key: Simple Icons slug/title, or 'devicon:name'."""
+    if key.startswith('devicon:'):
+        return _devicon(key[8:])
+    return _si_icon(key) or _devicon(''.join(c for c in key.lower().replace('+', 'plus').replace('#', 'sharp') if c.isalnum()))
+
+
+def load_icons(names):
+    """Icons for every name, from data/icons.json; anything new is fetched once and cached."""
+    try:
+        cache = json.load(open(ICON_CACHE, encoding='utf-8'))
+    except Exception:
+        cache = {}
+    if cache.get('_versions') != [SIMPLE_ICONS, DEVICON]:
+        cache = {'_versions': [SIMPLE_ICONS, DEVICON]}
+    keys = set()
+    for n in names:
+        alias = ICON_ALIASES.get(n, n)
+        keys.update(alias if isinstance(alias, tuple) else [alias])
+    missing = [k for k in sorted(keys) if k not in cache]
+    for k in missing:
+        try:
+            cache[k] = _resolve(k)            # None is cached too, so a miss isn't retried daily
+        except Exception as e:                # offline: draw a monogram today, try again tomorrow
+            print(f'  icon for {k!r} unavailable ({e})')
+    if missing:
+        os.makedirs(os.path.dirname(ICON_CACHE), exist_ok=True)
+        json.dump(cache, open(ICON_CACHE, 'w', encoding='utf-8'), indent=1, sort_keys=True)
+    return cache
+
+
+def readable(hexcol):
+    """Brand colour, lightened just enough to read on the dark card (black logos turn light grey)."""
+    r, g, b = (int(hexcol[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    min_lum = .55 if max(r, g, b) - min(r, g, b) < .12 else .16   # greys go light, colours stay colourful
+
+    def lum(c):
+        return sum(w * (v / 12.92 if v <= .03928 else ((v + .055) / 1.055) ** 2.4) for w, v in zip((.2126, .7152, .0722), c))
+    t = 0
+    while lum([v + (1 - v) * t for v in (r, g, b)]) < min_lum and t < .9:
+        t += .05
+    return '#' + ''.join(f'{round((v + (1 - v) * t) * 255):02X}' for v in (r, g, b))
+
+
+def draw_icon(icon, x, y, size, uid):
+    if icon['color']:   # Simple Icons: one path, filled with the brand colour
+        return (f'<svg x="{x:.1f}" y="{y:.1f}" width="{size}" height="{size}" viewBox="{icon["viewBox"]}">'
+                f'<g fill="{readable(icon["color"])}">{icon["body"]}</g></svg>')
+    import re           # Devicon: full-colour artwork; prefix its ids so tiles can't clash
+    body = re.sub(r'id="([^"]+)"', rf'id="{uid}-\1"', icon['body'])
+    body = re.sub(r'url\(#([^)]+)\)', rf'url(#{uid}-\1)', body)
+    body = re.sub(r'href="#([^"]+)"', rf'href="#{uid}-\1"', body)
+    return f'<svg x="{x:.1f}" y="{y:.1f}" width="{size}" height="{size}" viewBox="{icon["viewBox"]}">{body}</svg>'
+
+
+def make_toolbox(data):
+    groups = detect_toolbox(data)
+    icons = load_icons([n for items in groups.values() for n, _ in items])
     W = 1000
-    row_h, y = 52, INSET + 10
-    body = []
-    for group, c, items in TOOLBOX:
-        body.append(f'<text x="{INSET}" y="{y + 20}" class="d" font-size="14" font-weight="700" fill="{c}">{esc(group)}</text>')
-        x = INSET + 120
-        for it in items:
-            w = tw(it, 'JBMono-400', 13.5) + 30
-            body.append(f'<rect x="{x:.0f}" y="{y}" width="{w:.0f}" height="30" rx="15" fill="{CARD2}" stroke="{STROKE}"/>'
-                        f'<circle cx="{x + 14:.0f}" cy="{y + 15}" r="4" fill="{c}"/>'
-                        f'<text x="{x + 24:.0f}" y="{y + 19.5}" class="m" font-size="13.5" fill="{TEXT}">{esc(it)}</text>')
-            x += w + 10
-        y += row_h
-    H = y + INSET - 12
-    save('toolbox.svg', svg_doc(W, H, 'Toolbox: ' + '; '.join(f'{g}: {", ".join(i)}' for g, _, i in TOOLBOX),
-                                card_bg(W, H, AMBER, 'tg') + ''.join(body)))
+    tile_w, tile_h, gap, label_w = 84, 88, 10, 150
+    per_row = (W - 2 * INSET - label_w + gap) // (tile_w + gap)
+    body, y, k = [], INSET, 0
+    for gi, (group, accent) in enumerate(TOOLBOX_GROUPS):
+        items = groups[group]
+        if not items:
+            continue
+        if gi:
+            body.append(f'<line x1="{INSET}" x2="{W - INSET}" y1="{y - gap - 1}" y2="{y - gap - 1}" stroke="{STROKE}" stroke-opacity=".6"/>')
+        seen = sum(1 for _, c in items if c)
+        body.append(f'<rect x="{INSET}" y="{y + 30}" width="22" height="4" rx="2" fill="{accent}"/>'
+                    f'<text x="{INSET}" y="{y + 22}" class="d" font-size="15" font-weight="700" fill="{TEXT}">{esc(group)}</text>'
+                    f'<text x="{INSET}" y="{y + 56}" class="m" font-size="{T_SMALL}" fill="{MUTED}">{len(items)} total</text>'
+                    f'<text x="{INSET}" y="{y + 74}" class="m" font-size="{T_SMALL}" fill="{DIM}">{seen} in my repos</text>')
+        for i, (name, count) in enumerate(items):
+            x = INSET + label_w + (i % per_row) * (tile_w + gap)
+            ty = y + (i // per_row) * (tile_h + gap)
+            label = SHORT_LABEL.get(name, name)
+            fs = T_SMALL
+            while tw(label, 'JBMono-400', fs) > tile_w - 10 and fs > 10:
+                fs -= .5
+            alias = ICON_ALIASES.get(name, name)
+            main, badge_key = (alias if isinstance(alias, tuple) else (alias, None))
+            ico, size = icons.get(main), 34
+            ix, iy = x + (tile_w - size) / 2, ty + 14
+            if ico:
+                art = draw_icon(ico, ix, iy, size, f'i{k}')
+                if badge_key and icons.get(badge_key):
+                    art += (f'<circle cx="{ix + size + 1:.1f}" cy="{iy + size - 1:.1f}" r="11" fill="{CARD2}" stroke="{STROKE}"/>'
+                            + draw_icon(icons[badge_key], ix + size - 8, iy + size - 10, 18, f'i{k}b'))
+            else:     # no icon anywhere: a monogram in the group colour
+                mono = ''.join(ch for ch in name if ch.isalnum() or ch in '#+')[:3]
+                art = (f'<rect x="{ix:.1f}" y="{iy:.1f}" width="{size}" height="{size}" rx="9" fill="{accent}" fill-opacity=".15" stroke="{accent}" stroke-opacity=".6"/>'
+                       f'<text x="{ix + size / 2:.1f}" y="{iy + size / 2 + 5:.1f}" text-anchor="middle" class="m" font-size="14" font-weight="700" fill="{accent}">{esc(mono)}</text>')
+            tip = f'{name}: in {count} of my public repos' if count else name
+            # visible by default (so it still shows where animation is off), faded in where it isn't
+            delay = .15 + k * .045
+            body.append(f'<g><title>{esc(tip)}</title>'
+                        f'<animate attributeName="opacity" values="0;0;1" keyTimes="0;{kt(delay + .4, delay)};1" dur="{delay + .4:.2f}s" fill="freeze"/>'
+                        f'<rect x="{x:.1f}" y="{ty:.1f}" width="{tile_w}" height="{tile_h}" rx="16" fill="{CARD2}" stroke="{STROKE}"/>'
+                        f'{art}'
+                        f'<text x="{x + tile_w / 2:.1f}" y="{ty + tile_h - 16}" text-anchor="middle" class="m" font-size="{fs}" fill="{TEXT}">{esc(label)}</text></g>')
+            k += 1
+        rows = math.ceil(len(items) / per_row)
+        y += rows * tile_h + (rows - 1) * gap + 2 * gap + 1
+    H = y - 2 * gap - 1 + INSET
+    alt = 'Toolbox. ' + '. '.join(f'{g}: {", ".join(n for n, _ in groups[g])}' for g, _ in TOOLBOX_GROUPS if groups[g])
+    save('toolbox.svg', svg_doc(W, H, alt, card_bg(W, H, AMBER, 'tg') + ''.join(body),
+                                fonts=('Unbounded-700', 'JBMono-400', 'JBMono-700')))
+    return alt
 
 
 # ------------------------------------------------------------------ stats ---
@@ -709,36 +955,11 @@ const usama = {{
 ```'''
 
 
-def make_recent(data):
-    """'Right now' card: the repos pushed to most recently."""
-    own = [r for r in own_repos(data) if r.get('pushedAt')]
-    recent = sorted(own, key=lambda r: r['pushedAt'], reverse=True)[:4]
-    W, H = 1000, 108 + 46 * len(recent)
-    cols = [CYAN, PINK, AMBER, MINT]
-    b = [card_bg(W, H, CYAN, 'rg'), card_title('Right now', 'the repos I pushed to most recently', W)]
-    for i, r in enumerate(recent):
-        y = 118 + i * 46
-        desc = (r.get('description') or '').strip()
-        if desc.lower().startswith('about '):
-            desc = desc[6:]
-        desc = wrap(desc, 'JBMono-400', T_SMALL, 520, 1)[0] if desc else ''
-        b.append(f'''<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="{.2 + i * .15:.2f}s" dur=".5s" fill="freeze"/>
-<animateTransform attributeName="transform" type="translate" from="-12 0" to="0 0" begin="{.2 + i * .15:.2f}s" dur=".5s" fill="freeze"/>
-<circle cx="{INSET + 6}" cy="{y - 5}" r="5" fill="{cols[i % 4]}"/>
-<text x="{INSET + 22}" y="{y}" class="d" font-size="15" font-weight="700" fill="{TEXT}">{esc(r['name'])}</text>
-<text x="{INSET + 22 + tw(r['name'], 'Unbounded-700', 15) + 16:.0f}" y="{y}" class="m" font-size="{T_SMALL}" fill="{MUTED}">{esc(r.get('language') or '')}</text>
-<text x="{W - INSET}" y="{y}" text-anchor="end" class="m" font-size="{T_SMALL}" fill="{DIM}">pushed {ago(r['pushedAt'])}</text>
-<text x="{INSET + 22}" y="{y + 19}" class="m" font-size="{T_SMALL}" fill="{MUTED}" fill-opacity=".8">{esc(desc)}</text></g>''')
-        if i < len(recent) - 1:
-            b.append(f'<line x1="{INSET}" x2="{W - INSET}" y1="{y + 30}" y2="{y + 30}" stroke="{STROKE}" stroke-opacity=".6"/>')
-    save('recent.svg', svg_doc(W, H, 'Recently pushed: ' + ', '.join(r['name'] for r in recent), ''.join(b)))
-
-
-def write_readme(data, names):
+def write_readme(data, names, toolbox_alt):
     tpl = open(os.path.join(ROOT, 'scripts', 'README.template.md'), encoding='utf-8').read()
     links = ' ·\n  '.join(f'<a href="https://github.com/{data["login"]}/{n}">{n}</a>' for n in names)
     out = (tpl.replace('{{about}}', about_text(data)).replace('{{code}}', code_block(data))
-              .replace('{{project_links}}', links).replace('{{project_names}}', ', '.join(names))
+              .replace('{{project_links}}', links).replace('{{toolbox_alt}}', esc(toolbox_alt)).replace('{{project_names}}', ', '.join(names))
               .replace('{{login}}', data['login']).replace('{{updated}}', TODAY.strftime('%d %b %Y')))
     with open(os.path.join(ROOT, 'README.md'), 'w', encoding='utf-8') as f:
         f.write(out)
@@ -761,11 +982,10 @@ def main():
     print(f'Generating for {data["login"]} ({data.get("source", "")})')
     make_headers(data)
     make_badges(data)
-    make_toolbox()
-    make_recent(data)
+    toolbox_alt = make_toolbox(data)
     names = make_projects(data)
     make_stats(data)
-    write_readme(data, names)
+    write_readme(data, names, toolbox_alt)
     make_footer()
 
 

@@ -32,8 +32,6 @@ const usama = {
 } as const;   // onGitHub is refreshed daily by a GitHub Action
 ```
 
-<img src="./assets/recent.svg" width="100%" alt="Right now: the repositories I pushed to most recently"/>
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/projects-dark.svg"/>
   <source media="(prefers-color-scheme: light)" srcset="./assets/headers/projects-light.svg"/>
@@ -60,7 +58,7 @@ const usama = {
   <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
 </picture>
 
-<img src="./assets/toolbox.svg" width="100%" alt="Toolbox: C++, Qt, Python, PyQt, PySide, TypeScript, JavaScript, React, Node.js, HTML, CSS; Windows, macOS, Linux, Android, iOS, Web"/>
+<img src="./assets/toolbox.svg" width="100%" alt="Toolbox. Languages: Python, HTML, JavaScript, CSS, Shell, C++, TypeScript. Frameworks: Qt, PyQt, PySide, Node.js, React. Platforms: Windows, Linux, iOS, macOS, Android"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/stats-dark.svg"/>
