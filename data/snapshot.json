@@ -36,6 +36,38 @@
    "topics": []
   },
   {
+   "name": "QFunnyWidgets-cpp",
+   "description": "Funny animated Qt widgets for C++: switches, loaders, sliders, toasts and more, each with a personality.",
+   "stars": 1,
+   "fork": false,
+   "language": "C++",
+   "pushedAt": "2026-10-15T04:07:59Z",
+   "languages": {
+    "C++": 889190,
+    "CMake": 11772,
+    "C": 1707,
+    "QMake": 861
+   },
+   "topics": [
+    "cpp",
+    "custom-widgets",
+    "funny",
+    "gui",
+    "qt",
+    "qt-designer",
+    "qt-widgets",
+    "qt5",
+    "qt6",
+    "widgets",
+    "animation",
+    "ui",
+    "ui-design",
+    "ui-framework",
+    "ui-widget",
+    "ui-widgets"
+   ]
+  },
+  {
    "name": "QFunnyWidgets",
    "description": "Funny animated Qt widgets for PyQt and PySide: switches, loaders, sliders, toasts and more, each with a personality.",
    "stars": 1,
@@ -142,7 +174,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-10-14T11:21:32Z",
+   "pushedAt": "2026-10-14T11:21:41Z",
    "languages": {
     "Python": 55275
    },
@@ -1949,8 +1981,12 @@
   },
   {
    "date": "2026-10-14",
-   "count": 1
+   "count": 2
+  },
+  {
+   "date": "2026-10-15",
+   "count": 7
   }
  ],
- "source": "GitHub API 2026-10-14"
+ "source": "GitHub API 2026-10-15"
 }
