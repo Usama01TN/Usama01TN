@@ -36,6 +36,19 @@
    "topics": []
   },
   {
+   "name": "PyFreeRdpNative",
+   "description": "About PyFreeRdpNative is a remote desktop protocol library on cross-platforms for clients & servers compiled for python",
+   "stars": 2,
+   "fork": false,
+   "language": "Python",
+   "pushedAt": "2026-10-28T01:31:57Z",
+   "languages": {
+    "Python": 2748314,
+    "CMake": 3592
+   },
+   "topics": []
+  },
+  {
    "name": "QFunnyWidgets-cpp",
    "description": "Funny animated Qt widgets for C++: switches, loaders, sliders, toasts and more, each with a personality.",
    "stars": 1,
@@ -131,19 +144,6 @@
    "topics": []
   },
   {
-   "name": "PyFreeRdpNative",
-   "description": "About PyFreeRdpNative is a remote desktop protocol library on cross-platforms for clients & servers compiled for python",
-   "stars": 1,
-   "fork": false,
-   "language": "Python",
-   "pushedAt": "2026-10-28T01:31:57Z",
-   "languages": {
-    "Python": 2748314,
-    "CMake": 3592
-   },
-   "topics": []
-  },
-  {
    "name": "PyQtBuilder",
    "description": "Builds PyQt/PySide apps on multiple platforms",
    "stars": 1,
@@ -174,7 +174,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-10-30T09:36:07Z",
+   "pushedAt": "2026-10-31T09:16:58Z",
    "languages": {
     "Python": 55275
    },
@@ -511,34 +511,6 @@
   }
  ],
  "calendar": [
-  {
-   "date": "2025-10-26",
-   "count": 0
-  },
-  {
-   "date": "2025-10-27",
-   "count": 0
-  },
-  {
-   "date": "2025-10-28",
-   "count": 0
-  },
-  {
-   "date": "2025-10-29",
-   "count": 0
-  },
-  {
-   "date": "2025-10-30",
-   "count": 0
-  },
-  {
-   "date": "2025-10-31",
-   "count": 0
-  },
-  {
-   "date": "2025-11-01",
-   "count": 0
-  },
   {
    "date": "2025-11-02",
    "count": 0
@@ -1994,7 +1966,11 @@
   {
    "date": "2026-10-31",
    "count": 0
+  },
+  {
+   "date": "2026-11-01",
+   "count": 0
   }
  ],
- "source": "GitHub API 2026-10-31"
+ "source": "GitHub API 2026-11-01"
 }
