@@ -26,7 +26,7 @@ const usama = {
   native:    ["Qt C++", "PyQt / PySide"],
   web:       ["TypeScript", "React", "JavaScript", "HTML / CSS"],
   backend:   ["Python", "Node.js"],
-  onGitHub:  { repos: 34, stars: 14, topLanguages: ["Python", "HTML", "JavaScript", "CSS"] },
+  onGitHub:  { repos: 35, stars: 14, topLanguages: ["Python", "HTML", "JavaScript", "CSS"] },
   debugger:  "a rubber duck",            // 100% success rate, 0% salary
   status:    (coffee: boolean) => coffee ? "shipping" : "compiling...",
 } as const;   // onGitHub is refreshed daily by a GitHub Action
