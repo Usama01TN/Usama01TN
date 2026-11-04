@@ -41,12 +41,43 @@
    "stars": 2,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-03T03:42:42Z",
+   "pushedAt": "2026-11-03T12:19:31Z",
    "languages": {
-    "Python": 2830569,
+    "Python": 2846436,
     "CMake": 3592
    },
    "topics": []
+  },
+  {
+   "name": "PyFreeRdpApp",
+   "description": "Python RDP client built on FreeRDP 3: an embeddable Qt widget (PyQt5/6, PySide6) and a desktop app with clipboard and file transfer, shared folders, sound, RemoteApp, Azure AD sign-in and H.264 graphics. Crossplatforms.",
+   "stars": 1,
+   "fork": false,
+   "language": "Python",
+   "pushedAt": "2026-11-04T05:54:41Z",
+   "languages": {
+    "Python": 397795
+   },
+   "topics": [
+    "azure-ad",
+    "clipboard",
+    "cross-platform",
+    "file-transfer",
+    "freerdp",
+    "linux",
+    "pyqt5",
+    "pyside6",
+    "python",
+    "qt",
+    "qt-designer",
+    "qt-gui",
+    "qt-widget",
+    "rdp",
+    "rdp-connection",
+    "remote-control",
+    "remote-desktop",
+    "windows"
+   ]
   },
   {
    "name": "QFunnyWidgets-cpp",
@@ -169,24 +200,12 @@
    "topics": []
   },
   {
-   "name": "PyFreeRdpApp",
-   "description": "",
-   "stars": 0,
-   "fork": false,
-   "language": "Python",
-   "pushedAt": "2026-11-02T03:54:48Z",
-   "languages": {
-    "Python": 314435
-   },
-   "topics": []
-  },
-  {
    "name": "Usama01TN",
    "description": "",
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-02T10:31:11Z",
+   "pushedAt": "2026-11-03T10:27:19Z",
    "languages": {
     "Python": 55275
    },
@@ -1989,8 +2008,12 @@
   },
   {
    "date": "2026-11-03",
-   "count": 5
+   "count": 6
+  },
+  {
+   "date": "2026-11-04",
+   "count": 11
   }
  ],
- "source": "GitHub API 2026-11-03"
+ "source": "GitHub API 2026-11-04"
 }
