@@ -234,7 +234,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-06T10:23:30Z",
+   "pushedAt": "2026-11-07T09:37:04Z",
    "languages": {
     "Python": 55275
    },
@@ -480,15 +480,15 @@
    "topics": []
   },
   {
-   "name": "rdpyqt",
+   "name": "RdpyManyQt",
    "description": "Remote Desktop Protocol in Twisted Python",
    "stars": 0,
    "fork": true,
    "language": "Python",
-   "pushedAt": "2026-11-06T11:24:41Z",
+   "pushedAt": "2026-11-08T09:37:07Z",
    "languages": {
-    "Python": 817882,
-    "Cython": 157742
+    "Python": 1189498,
+    "Cython": 160563
    },
    "topics": []
   },
@@ -571,34 +571,6 @@
   }
  ],
  "calendar": [
-  {
-   "date": "2025-11-02",
-   "count": 0
-  },
-  {
-   "date": "2025-11-03",
-   "count": 0
-  },
-  {
-   "date": "2025-11-04",
-   "count": 0
-  },
-  {
-   "date": "2025-11-05",
-   "count": 4
-  },
-  {
-   "date": "2025-11-06",
-   "count": 0
-  },
-  {
-   "date": "2025-11-07",
-   "count": 0
-  },
-  {
-   "date": "2025-11-08",
-   "count": 0
-  },
   {
    "date": "2025-11-09",
    "count": 0
@@ -2054,7 +2026,11 @@
   {
    "date": "2026-11-07",
    "count": 0
+  },
+  {
+   "date": "2026-11-08",
+   "count": 0
   }
  ],
- "source": "GitHub API 2026-11-07"
+ "source": "GitHub API 2026-11-08"
 }
