@@ -49,6 +49,40 @@
    "topics": []
   },
   {
+   "name": "QAxRDP",
+   "description": "Microsoft Remote Desktop (RDP) ActiveX control as a Qt widget for Python via ManyQt (PyQt/PySide), with a Qt Designer plugin.",
+   "stars": 1,
+   "fork": false,
+   "language": "Python",
+   "pushedAt": "2026-11-12T20:20:09Z",
+   "languages": {
+    "Python": 355322,
+    "Go Template": 10377
+   },
+   "topics": [
+    "activex",
+    "gui",
+    "manyqt",
+    "mstsc",
+    "pyqt5",
+    "pyqt6",
+    "pyside2",
+    "pyside6",
+    "python",
+    "qt",
+    "qt-designer",
+    "qt-widgets",
+    "rd-gateway",
+    "rdp",
+    "rdp-client",
+    "remote-access",
+    "remote-desktop",
+    "remoteapp",
+    "windows",
+    "qaxwidget"
+   ]
+  },
+  {
    "name": "PyFreeRdpApp",
    "description": "Python RDP client built on FreeRDP 3: an embeddable Qt widget (PyQt5/6, PySide6) and a desktop app with clipboard and file transfer, shared folders, sound, RemoteApp, Azure AD sign-in and H.264 graphics. Crossplatforms.",
    "stars": 1,
@@ -200,6 +234,19 @@
    "topics": []
   },
   {
+   "name": "SimpleReactComponent",
+   "description": "",
+   "stars": 0,
+   "fork": false,
+   "language": "JavaScript",
+   "pushedAt": "2026-11-13T07:15:58Z",
+   "languages": {
+    "JavaScript": 2136,
+    "CSS": 1524
+   },
+   "topics": []
+  },
+  {
    "name": "FifaPlayerCardsSimple",
    "description": "",
    "stars": 0,
@@ -249,7 +296,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-11T10:19:24Z",
+   "pushedAt": "2026-11-12T10:38:18Z",
    "languages": {
     "Python": 55275
    },
@@ -2060,8 +2107,12 @@
   },
   {
    "date": "2026-11-12",
-   "count": 0
+   "count": 12
+  },
+  {
+   "date": "2026-11-13",
+   "count": 2
   }
  ],
- "source": "GitHub API 2026-11-12"
+ "source": "GitHub API 2026-11-13"
 }
