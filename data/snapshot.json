@@ -209,6 +209,19 @@
    "topics": []
   },
   {
+   "name": "RdpyManyQt",
+   "description": "Remote Desktop Protocol in Twisted Python",
+   "stars": 1,
+   "fork": true,
+   "language": "Python",
+   "pushedAt": "2026-11-15T23:58:08Z",
+   "languages": {
+    "Python": 1872048,
+    "Cython": 160609
+   },
+   "topics": []
+  },
+  {
    "name": "PyQtBuilder",
    "description": "Builds PyQt/PySide apps on multiple platforms",
    "stars": 1,
@@ -322,7 +335,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-14T09:49:00Z",
+   "pushedAt": "2026-11-15T10:23:43Z",
    "languages": {
     "Python": 55275
    },
@@ -564,19 +577,6 @@
    "languages": {
     "Shell": 38545,
     "Python": 35160
-   },
-   "topics": []
-  },
-  {
-   "name": "RdpyManyQt",
-   "description": "Remote Desktop Protocol in Twisted Python",
-   "stars": 0,
-   "fork": true,
-   "language": "Python",
-   "pushedAt": "2026-11-08T10:44:06Z",
-   "languages": {
-    "Python": 1200013,
-    "Cython": 160563
    },
    "topics": []
   },
@@ -2106,7 +2106,11 @@
   {
    "date": "2026-11-15",
    "count": 0
+  },
+  {
+   "date": "2026-11-16",
+   "count": 0
   }
  ],
- "source": "GitHub API 2026-11-15"
+ "source": "GitHub API 2026-11-16"
 }
