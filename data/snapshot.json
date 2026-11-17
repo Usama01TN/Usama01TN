@@ -41,9 +41,9 @@
    "stars": 2,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-03T12:19:31Z",
+   "pushedAt": "2026-11-16T16:57:59Z",
    "languages": {
-    "Python": 2846436,
+    "Python": 2846414,
     "CMake": 3592
    },
    "topics": []
@@ -219,7 +219,22 @@
     "Python": 1872048,
     "Cython": 160609
    },
-   "topics": []
+   "topics": [
+    "desktop-app",
+    "gui",
+    "multi-session",
+    "pyqt",
+    "pyside",
+    "python",
+    "qt",
+    "qt-widget",
+    "rdp",
+    "rdp-client",
+    "rdpy",
+    "remote-access",
+    "remote-desktop",
+    "remote-desktop-protocol"
+   ]
   },
   {
    "name": "PyQtBuilder",
@@ -255,6 +270,33 @@
    "pushedAt": "2026-11-09T18:21:46Z",
    "languages": {
     "Python": 19923
+   },
+   "topics": []
+  },
+  {
+   "name": "ReactUserDirectoryExample",
+   "description": "",
+   "stars": 0,
+   "fork": false,
+   "language": "JavaScript",
+   "pushedAt": "2026-11-16T21:53:36Z",
+   "languages": {
+    "JavaScript": 4843,
+    "CSS": 3942,
+    "HTML": 368
+   },
+   "topics": []
+  },
+  {
+   "name": "ToDoAppRedux",
+   "description": "",
+   "stars": 0,
+   "fork": false,
+   "language": "JavaScript",
+   "pushedAt": "2026-11-16T13:33:14Z",
+   "languages": {
+    "JavaScript": 5831,
+    "CSS": 1340
    },
    "topics": []
   },
@@ -335,7 +377,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-15T10:23:43Z",
+   "pushedAt": "2026-11-16T10:37:54Z",
    "languages": {
     "Python": 55275
    },
@@ -2109,8 +2151,12 @@
   },
   {
    "date": "2026-11-16",
+   "count": 6
+  },
+  {
+   "date": "2026-11-17",
    "count": 0
   }
  ],
- "source": "GitHub API 2026-11-16"
+ "source": "GitHub API 2026-11-17"
 }
