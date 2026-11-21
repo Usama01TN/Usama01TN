@@ -26,7 +26,7 @@ const usama = {
   native:    ["Qt C++", "PyQt / PySide"],
   web:       ["TypeScript", "React", "JavaScript", "HTML / CSS"],
   backend:   ["Python", "Node.js"],
-  onGitHub:  { repos: 44, stars: 18, topLanguages: ["Python", "JavaScript", "HTML", "CSS"] },
+  onGitHub:  { repos: 46, stars: 19, topLanguages: ["Python", "JavaScript", "HTML", "CSS"] },
   debugger:  "a rubber duck",            // 100% success rate, 0% salary
   status:    (coffee: boolean) => coffee ? "shipping" : "compiling...",
 } as const;   // onGitHub is refreshed daily by a GitHub Action
@@ -58,7 +58,7 @@ const usama = {
   <img src="./assets/headers/toolbox-dark.svg" width="100%" alt="Toolbox"/>
 </picture>
 
-<img src="./assets/toolbox.svg" width="100%" alt="Toolbox. Languages: Python, JavaScript, CSS, HTML, TypeScript, C++, Shell. Frameworks: Qt, PyQt, PySide, React, Node.js, OpenCV. Platforms: Windows, Linux, macOS, iOS, Android"/>
+<img src="./assets/toolbox.svg" width="100%" alt="Toolbox. Languages: JavaScript, CSS, Python, HTML, TypeScript, C++, Shell. Frameworks: Qt, PyQt, PySide, React, Node.js, OpenCV. Platforms: Windows, Linux, macOS, iOS, Android"/>
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/headers/stats-dark.svg"/>

@@ -21,6 +21,39 @@
    "topics": []
   },
   {
+   "name": "ScreenMagnifier",
+   "description": "Real-time screen magnifier for Windows, macOS & Linux with AI super-resolution, an in-game zoom lens, a screen color picker, color & face detection and an optional analysis server. Python + Qt (PyQt/PySide).",
+   "stars": 2,
+   "fork": false,
+   "language": "Python",
+   "pushedAt": "2026-11-20T16:20:37Z",
+   "languages": {
+    "Python": 1059804
+   },
+   "topics": [
+    "accessibility",
+    "color-blindness",
+    "color-picker",
+    "cross-platform",
+    "desktop-app",
+    "eyedropper",
+    "face-detection",
+    "gaming",
+    "image-upscaling",
+    "linux",
+    "low-vision",
+    "macos",
+    "magnifier",
+    "opencv",
+    "pyqt6",
+    "python",
+    "screen-magnifier",
+    "screen-zoom",
+    "super-resolution",
+    "windows"
+   ]
+  },
+  {
    "name": "QuizKey",
    "description": "Hotkey-driven AI quiz assistant for Chrome, powered by vision models (OpenAI, Claude, Gemini, OpenRouter, OmniRoute, Ollama, LM Studio\u2026)",
    "stars": 2,
@@ -47,39 +80,6 @@
     "CMake": 3592
    },
    "topics": []
-  },
-  {
-   "name": "ScreenMagnifier",
-   "description": "Real-time screen magnifier for Windows, macOS & Linux with AI super-resolution, an in-game zoom lens, a screen color picker, color & face detection and an optional analysis server. Python + Qt (PyQt/PySide).",
-   "stars": 1,
-   "fork": false,
-   "language": "Python",
-   "pushedAt": "2026-11-20T02:19:02Z",
-   "languages": {
-    "Python": 1059804
-   },
-   "topics": [
-    "accessibility",
-    "color-blindness",
-    "color-picker",
-    "cross-platform",
-    "desktop-app",
-    "eyedropper",
-    "face-detection",
-    "gaming",
-    "image-upscaling",
-    "linux",
-    "low-vision",
-    "macos",
-    "magnifier",
-    "opencv",
-    "pyqt6",
-    "python",
-    "screen-magnifier",
-    "screen-zoom",
-    "super-resolution",
-    "windows"
-   ]
   },
   {
    "name": "QAxRDP",
@@ -307,6 +307,33 @@
    "topics": []
   },
   {
+   "name": "UsamaPortfolioDemo",
+   "description": "",
+   "stars": 0,
+   "fork": false,
+   "language": "JavaScript",
+   "pushedAt": "2026-11-21T09:56:12Z",
+   "languages": {
+    "JavaScript": 49972,
+    "CSS": 17005
+   },
+   "topics": []
+  },
+  {
+   "name": "UserDirectoryExample",
+   "description": "",
+   "stars": 0,
+   "fork": false,
+   "language": "JavaScript",
+   "pushedAt": "2026-11-21T08:45:17Z",
+   "languages": {
+    "JavaScript": 4740,
+    "CSS": 3414,
+    "HTML": 366
+   },
+   "topics": []
+  },
+  {
    "name": "ReactUserDirectoryExample",
    "description": "",
    "stars": 0,
@@ -410,7 +437,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-19T11:07:04Z",
+   "pushedAt": "2026-11-20T10:53:56Z",
    "languages": {
     "Python": 55275
    },
@@ -2200,8 +2227,12 @@
   },
   {
    "date": "2026-11-20",
-   "count": 3
+   "count": 6
+  },
+  {
+   "date": "2026-11-21",
+   "count": 4
   }
  ],
- "source": "GitHub API 2026-11-20"
+ "source": "GitHub API 2026-11-21"
 }
