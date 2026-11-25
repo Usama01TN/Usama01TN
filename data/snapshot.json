@@ -4,26 +4,9 @@
  "followers": 7,
  "repos": [
   {
-   "name": "OcrRoute",
-   "description": "One API for 50+ OCR engines: smart routing, automatic fallbacks, caching, cost tracking, web dashboard and PyQt desktop app.",
-   "stars": 3,
-   "fork": false,
-   "language": "Python",
-   "pushedAt": "2026-09-30T15:15:54Z",
-   "languages": {
-    "Python": 1774185,
-    "HTML": 166966,
-    "JavaScript": 23261,
-    "Makefile": 964,
-    "Dockerfile": 758,
-    "Mako": 476
-   },
-   "topics": []
-  },
-  {
    "name": "ScreenMagnifier",
    "description": "Real-time screen magnifier for Windows, macOS & Linux with AI super-resolution, an in-game zoom lens, a screen color picker, color & face detection and an optional analysis server. Python + Qt (PyQt/PySide).",
-   "stars": 2,
+   "stars": 3,
    "fork": false,
    "language": "Python",
    "pushedAt": "2026-11-20T16:20:37Z",
@@ -52,6 +35,23 @@
     "super-resolution",
     "windows"
    ]
+  },
+  {
+   "name": "OcrRoute",
+   "description": "One API for 50+ OCR engines: smart routing, automatic fallbacks, caching, cost tracking, web dashboard and PyQt desktop app.",
+   "stars": 3,
+   "fork": false,
+   "language": "Python",
+   "pushedAt": "2026-09-30T15:15:54Z",
+   "languages": {
+    "Python": 1774185,
+    "HTML": 166966,
+    "JavaScript": 23261,
+    "Makefile": 964,
+    "Dockerfile": 758,
+    "Mako": 476
+   },
+   "topics": []
   },
   {
    "name": "QuizKey",
@@ -501,7 +501,7 @@
    "stars": 0,
    "fork": false,
    "language": "Python",
-   "pushedAt": "2026-11-23T11:47:34Z",
+   "pushedAt": "2026-11-24T13:16:33Z",
    "languages": {
     "Python": 55275
    },
@@ -2280,7 +2280,11 @@
   {
    "date": "2026-11-24",
    "count": 0
+  },
+  {
+   "date": "2026-11-25",
+   "count": 0
   }
  ],
- "source": "GitHub API 2026-11-24"
+ "source": "GitHub API 2026-11-25"
 }
